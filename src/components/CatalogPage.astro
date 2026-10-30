@@ -1,0 +1,17 @@
+---
+import Heading from './Heading.astro';
+import Catalog from './Catalog.jsx';
+import ContactBanner from './ContactBanner.astro';
+import { categories } from '../data/site.js';
+import products from '../data/catalog.json';
+import { href, asset, requestUrl } from '../lib/urls.js';
+const { category } = Astro.props;
+const isGroup = category?.slug === 'obedennye-gruppy';
+const list = isGroup ? products.filter(p => p.collections?.includes('obedennye-gruppy')) : category ? products.filter(p => p.category === category.slug) : products;
+const cards = list.map(({ id, slug, name, category, brand, price, maxPrice, images }) => ({ id, slug, name, category, brand, price, maxPrice, images: images.slice(0, 1) }));
+---
+<Heading compact label={category?.name || 'Каталог'} title={category?.name || 'Мебель для тёплых встреч.'} intro={category?.intro || 'Столы, стулья и обеденные группы. Выбирайте то, что подходит вашему дому, а мы поможем с деталями.'} parent={category ? ['Каталог', 'catalog/'] : null} />
+{isGroup && <section class="page-section group-selection"><img src={asset('dining.webp')} alt="Пример сочетания стола и стульев в салоне" /><div><p class="eyebrow">ОДИН СТОЛ. МНОГО ТЁПЛЫХ ВСТРЕЧ.</p><h2>Соберём ваше сочетание.</h2><p>Начнём с размеров комнаты и количества мест. Подберём форму стола, посадку стульев и материалы, которые будут хорошо смотреться вместе.</p><a class="button button-gold" href={requestUrl('Стол и стулья', 'Хочу подобрать обеденную группу. Количество мест: ')}>Подобрать комплект</a></div></section>}
+<section class="catalog-section page-section"><nav class="category-tabs" aria-label="Категории мебели"><a class:list={{ active: !category }} href={href('catalog/')} aria-current={!category ? 'page' : undefined}>Все модели</a>{categories.map(c => <a href={href(`catalog/${c.slug}/`)} class:list={{ active: category?.slug === c.slug }} aria-current={category?.slug === c.slug ? 'page' : undefined}>{c.name}</a>)}</nav><p class="catalog-notice">{isGroup ? 'Ниже — отдельные столы и стулья для подбора группы. Цена указана за отдельную модель, а не за комплект. Итог зависит от исполнения и количества предметов.' : 'Модели и цены перенесены из прежнего каталога. Актуальную стоимость выбранного исполнения и наличие подтвердит менеджер перед заказом.'}</p><Catalog products={cards} client:load /></section>
+{category && <section class="page-section category-advice"><p class="eyebrow">ПОДСКАЗКА ПРИ ВЫБОРЕ</p><h2>Красиво. И удобно каждый день.</h2><p>{category.text}</p><a class="text-link" href={href('showroom/')}>Приехать в шоурум</a></section>}
+<ContactBanner title="Поможем найти своё сочетание." text="Расскажите о комнате, размерах и том, что вам нравится. Подберём стол и стулья вместе." kind="Стол и стулья" />

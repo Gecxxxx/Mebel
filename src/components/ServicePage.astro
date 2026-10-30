@@ -1,0 +1,15 @@
+---
+import Heading from './Heading.astro';
+import ContactBanner from './ContactBanner.astro';
+import { asset, href, requestUrl } from '../lib/urls.js';
+import { projects, process } from '../data/site.js';
+const { service, path } = Astro.props;
+const related = path === 'kuhni' ? projects.filter(p => p.type === 'Кухни') : projects.filter(p => p.type === 'Шкафы');
+---
+<section class="service-hero"><div><Heading label={service.name} title={service.title} intro={service.intro} parent={path.includes('/') ? ['Мебель на заказ', 'mebel-na-zakaz/'] : null} /><a class="button button-gold" href={requestUrl(service.kind)}>Обсудить проект<img class="icon" src={asset('icons/arrow-right.svg')} width="20" height="20" alt="" /></a></div><figure><img src={asset(service.image)} alt={service.alt} fetchpriority="high" /><figcaption>{service.caption}</figcaption></figure></section>
+<section class="page-section"><div class="three-notes">{service.blocks.map(([title, text], i) => <article><span class="note-number">0{i + 1}</span><h2>{title}</h2><p>{text}</p></article>)}</div></section>
+<section class="page-section inset-section"><div class="section-title"><p class="eyebrow">ПОДХОДЯЩЕЕ РЕШЕНИЕ</p><h2>У каждого дома свой характер.</h2></div><div class="solution-grid">{service.choices.map(([title, text, link]) => <article><h3>{title}</h3><p>{text}</p>{link && <a href={href(link)} class="text-link">Подробнее<img class="icon" src={asset('icons/arrow-right.svg')} width="18" height="18" alt="" /></a>}</article>)}</div></section>
+<section class="page-section editorial-statement"><p class="eyebrow">О СТОИМОСТИ</p><h2>Комплектация важнее<br />условной цены «от».</h2><p>{service.detail}</p><a class="text-link" href={href('materials/')}>Посмотреть материалы<img class="icon" src={asset('icons/arrow-right.svg')} width="20" height="20" alt="" /></a></section>
+<section class="page-section"><div class="section-heading-line"><div class="section-title"><p class="eyebrow">ПРИМЕР В ДЕТАЛЯХ</p><h2>Посмотрите ближе.</h2></div><a class="text-link" href={href('projects/')}>Все проекты<img class="icon" src={asset('icons/arrow-right.svg')} width="20" height="20" alt="" /></a></div><div class="related-projects">{related.map(p => <a class="related-project" href={href(`projects/${p.slug}/`)}><img src={asset(p.image)} alt={p.name} loading="lazy" /><div><p class="eyebrow">{p.label}</p><h3>{p.name}</h3><p>{p.intro}</p><span class="text-link">Смотреть историю<img class="icon" src={asset('icons/arrow-right.svg')} width="20" height="20" alt="" /></span></div></a>)}</div></section>
+<section class="page-section inset-section"><div class="section-title"><p class="eyebrow">СОПРОВОЖДАЕМ КАЖДЫЙ ЭТАП</p><h2>Понятный путь к результату.</h2></div><div class="small-steps">{[process[0], process[2], process[5]].map(([title, text], i) => <article><span>0{i + 1}</span><h3>{title}</h3><p>{text}</p></article>)}</div><a class="text-link" href={href('how-to-order/')}>Все этапы заказа<img class="icon" src={asset('icons/arrow-right.svg')} width="20" height="20" alt="" /></a></section>
+<ContactBanner kind={service.kind} />

@@ -4,15 +4,18 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build && node scripts/prepare-sites-build.mjs",
-    "build:pages": "vite build --base=/Mebel/ && node scripts/prepare-sites-build.mjs",
-    "preview": "vite preview",
-    "preview:pages": "vite preview --base=/Mebel/",
-    "test:sites": "node --test tests/sites-worker.test.mjs"
+    "dev": "astro dev",
+    "build": "astro build && node scripts/prepare-sites-build.mjs",
+    "build:pages": "astro build --base=/Mebel/ && node scripts/prepare-sites-build.mjs",
+    "preview": "astro preview",
+    "preview:pages": "astro preview --base=/Mebel/",
+    "test:sites": "node --test tests/sites-worker.test.mjs",
+    "test:static": "node --test tests/static-site.test.mjs"
   },
   "dependencies": {
+    "@astrojs/react": "7.1.2",
     "@vitejs/plugin-react": "6.0.1",
+    "astro": "7.4.4",
     "react": "19.2.6",
     "react-dom": "19.2.6",
     "vite": "8.0.11"

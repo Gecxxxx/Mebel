@@ -1,0 +1,31 @@
+---
+import Base from '../layouts/Base.astro';
+import Heading from '../components/Heading.astro';
+import ServicePage from '../components/ServicePage.astro';
+import CatalogPage from '../components/CatalogPage.astro';
+import ProjectsPage from '../components/ProjectsPage.astro';
+import ProjectPage from '../components/ProjectPage.astro';
+import InfoPage from '../components/InfoPage.astro';
+import ProductDetail from '../components/ProductDetail.jsx';
+import RequestForm from '../components/RequestForm.jsx';
+import { ProductCard } from '../components/Catalog.jsx';
+import ContactBanner from '../components/ContactBanner.astro';
+import { routes } from '../data/routes.js';
+import { categories, business } from '../data/site.js';
+import products from '../data/catalog.json';
+import { href } from '../lib/urls.js';
+export function getStaticPaths() { return routes.map(page => ({ params: { path: page.path }, props: { page } })); }
+const { page } = Astro.props;
+const product = page.product;
+const category = product && categories.find(c => c.slug === product.category);
+const related = product ? products.filter(p => p.category === product.category && p.id !== product.id).slice(0, 3) : [];
+---
+<Base title={page.title} description={page.intro} current={page.section}>
+  {page.type === 'service' && <ServicePage service={page.service} path={page.path} />}
+  {page.type === 'catalog' && <CatalogPage category={page.category} />}
+  {page.type === 'projects' && <ProjectsPage />}
+  {page.type === 'project' && <ProjectPage project={page.project} />}
+  {page.type === 'info' && <InfoPage page={page.page} />}
+  {page.type === 'product' && <><nav class="breadcrumbs product-breadcrumbs" aria-label="Хлебные крошки"><a href={href()}>Главная</a><span>/</span><a href={href('catalog/')}>Каталог</a><span>/</span><a href={href(`catalog/${category.slug}/`)}>{category.name}</a><span>/</span><span aria-current="page">{product.name}</span></nav><section class="page-section product-section"><ProductDetail product={product} client:load /></section><section class="page-section product-information"><div><p class="eyebrow">ПОДРОБНЕЕ О МОДЕЛИ</p><h2>Материалы и характеристики</h2>{product.specs.length ? <dl class="specifications">{product.specs.map(s => <div><dt>{s.name}</dt><dd>{s.value}</dd></div>)}</dl> : <p>Для этой модели подробные характеристики уточняются у менеджера. Поможем проверить размеры и подобрать исполнение.</p>}{product.properties.length > 0 && <dl class="specifications">{product.properties.map(s => <div><dt>{s.name}</dt><dd>{s.value}</dd></div>)}</dl>}<p class="product-source-note">Характеристики и варианты перенесены из прежнего каталога. Перед заказом проверим выбранную комплектацию. Изображение на экране может отличаться от реального оттенка материала.</p></div><aside><p class="eyebrow">ПРИ ВЫБОРЕ МЕБЕЛИ</p><h3>Посмотрите вживую</h3><p>Уточните, представлена ли модель в салоне, и сравните материалы при дневном свете.</p><a class="text-link" href={href('showroom/')}>Наш шоурум</a><h3>Доставка и сборка</h3><p>Условия зависят от адреса и выбранной мебели. Согласуем их до заказа.</p><a class="text-link" href={href('delivery-payment/')}>Подробнее об условиях</a></aside></section><section class="page-section inset-section"><div class="section-title"><p class="eyebrow">ЕЩЁ НЕСКОЛЬКО ИДЕЙ</p><h2>Возможно, вам понравится.</h2></div><div class="catalog-grid">{related.map(p => <ProductCard product={p} />)}</div></section></>}
+  {page.type === 'request' && <><Heading label="ОБСУДИТЬ ПРОЕКТ" title="Каким вы видите свой дом?" intro="Расскажите немного о задаче. Подготовим текст, который вы сможете передать нам в Telegram." /><section class="page-section request-layout"><div><RequestForm client:load /></div><aside><p class="eyebrow">МОЖНО ПРОСТО ПОЗВОНИТЬ</p><a class="request-phone" href={`tel:${business.tel}`}>{business.phone}</a><p>Если у вас есть план помещения, фотографии или готовый проект, их можно отправить менеджеру вместе с сообщением.</p><div class="request-help"><h2>Что поможет в разговоре</h2><ul><li>Город и тип помещения</li><li>Примерные размеры</li><li>Фотографии и понравившиеся решения</li><li>Пожелания к материалам и наполнению</li></ul></div><a class="text-link" href={href('how-to-order/')}>Как проходит заказ</a></aside></section></>}
+</Base>

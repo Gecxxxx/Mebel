@@ -33,6 +33,8 @@ jobs:
         run: npm run build:pages
       - name: Verify build and worker
         run: npm run test:sites
+      - name: Verify generated pages, links and assets
+        run: npm run test:static
       - name: Upload website
         uses: actions/upload-pages-artifact@v4
         with:

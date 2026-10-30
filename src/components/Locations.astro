@@ -1,0 +1,6 @@
+---
+import { business } from '../data/site.js';
+import { requestUrl, asset } from '../lib/urls.js';
+---
+<div class="location-grid">{business.places.map(p => <article class="location-card"><p class="eyebrow">{p.name}</p><h2>Елец,<br />{p.address}</h2><p>{p.note}</p><div class="location-hours">{p.hours.map(h => <p>{h}</p>)}</div><a class="location-phone" href={`tel:${p.tel}`}>{p.phone}</a><a class="text-link" href={`https://yandex.ru/maps/?text=${encodeURIComponent('Елец ' + p.address)}`} target="_blank" rel="noreferrer">Построить маршрут<img class="icon" src={asset('icons/arrow-right.svg')} width="18" height="18" alt="" /></a></article>)}</div>
+<p class="location-visit-note">Если хотите увидеть конкретную модель или материал, позвоните перед посещением. Мы уточним, что есть в экспозиции.</p>

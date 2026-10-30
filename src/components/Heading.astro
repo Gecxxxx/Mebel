@@ -1,0 +1,8 @@
+---
+import { href } from '../lib/urls.js';
+const { label, title, intro, parent, compact = false } = Astro.props;
+---
+<div class:list={['page-heading', { 'compact-heading': compact }]}>
+  <nav class="breadcrumbs" aria-label="Хлебные крошки"><a href={href()}>Главная</a><span>/</span>{parent && <><a href={href(parent[1])}>{parent[0]}</a><span>/</span></>}<span aria-current="page">{label}</span></nav>
+  <p class="eyebrow">{label}</p><h1>{title}</h1>{intro && <p class="page-intro">{intro}</p>}
+</div>

@@ -1,0 +1,6 @@
+---
+import Base from '../layouts/Base.astro';
+import Heading from '../components/Heading.astro';
+import { href } from '../lib/urls.js';
+---
+<Base title="Страница не найдена" noindex><Heading label="404" title="Кажется, здесь пока пусто." intro="Этой страницы нет. Вернитесь на главную или загляните в каталог — там есть на что посмотреть." /><section class="page-section not-found-actions"><a class="button button-gold" href={href()}>На главную</a><a class="button button-outline" href={href('catalog/')}>Открыть каталог</a></section></Base>

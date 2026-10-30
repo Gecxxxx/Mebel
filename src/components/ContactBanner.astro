@@ -1,0 +1,5 @@
+---
+import { requestUrl, asset } from '../lib/urls.js';
+const { title = 'Расскажите о вашем доме.', text = 'Начнём с разговора: обсудим задачу, подберём материалы и наметим следующие шаги.', kind = 'Кухня', comment = '' } = Astro.props;
+---
+<section class="contact-banner"><div><p class="eyebrow">ДАВАЙТЕ СОЗДАДИМ ЧТО-ТО ВАШЕ</p><h2>{title}</h2><p>{text}</p></div><a class="button button-gold" href={requestUrl(kind, comment)}>Обсудить проект<img class="icon" src={asset('icons/arrow-right.svg')} width="20" height="20" alt="" /></a></section>
