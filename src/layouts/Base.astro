@@ -6,6 +6,7 @@ import '../prototype.css';
 import '../styles.css';
 import '../pages.css';
 import '../typography.css';
+import '../refinements.css';
 const { title = 'Семейное ателье мебели в Ельце', description = 'Кухни и мебель по индивидуальным размерам, столы и стулья. Подбор материалов и сопровождение до установки. Ателье мебели Приоритет, Елец.', current = '', noindex = false } = Astro.props;
 const pageTitle = `${title} — Приоритет`;
 const canonical = new URL(Astro.url.pathname, Astro.site || 'https://gecxxxx.github.io').href;
@@ -31,6 +32,7 @@ const indexable = import.meta.env.PUBLIC_INDEXABLE === 'true' && !noindex;
     <link rel="icon" type="image/svg+xml" href={asset('icons/map-pin.svg')} />
   </head>
   <body>
+    <script>import '../scripts/motion.js';</script>
     <a class="skip-link" href="#content">К содержимому</a>
     <Header current={current} client:load />
     <main id="content"><slot /></main>

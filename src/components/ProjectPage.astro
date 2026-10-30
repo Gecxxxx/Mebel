@@ -2,9 +2,13 @@
 import Heading from './Heading.astro';
 import Gallery from './Gallery.jsx';
 import ContactBanner from './ContactBanner.astro';
-import { requestUrl, asset } from '../lib/urls.js';
+import { requestUrl, asset, href } from '../lib/urls.js';
+import { projects } from '../data/site.js';
 const { project: p } = Astro.props;
+const nextProject = projects.find(project => project.slug !== p.slug);
 ---
 <Heading label={p.name} title={p.title} intro={p.intro} parent={['Проекты', 'projects/']} />
-<section class="page-section project-case"><Gallery images={p.images} title={p.name} client:load /><div class="case-story"><p class="eyebrow">{p.label}</p><h2>Задача</h2><p>{p.task}</p><h2>Решение</h2><p>{p.solution}</p><dl class="specifications">{p.specs.map(([key, value]) => <div><dt>{key}</dt><dd>{value}</dd></div>)}</dl><p class="case-price-note">{p.note}</p><a class="button button-gold" href={requestUrl(p.kind, `Понравился проект: ${p.name}`)}>Обсудить похожий проект<img class="icon" src={asset('icons/arrow-right.svg')} width="20" height="20" alt="" /></a></div></section>
+<nav class="case-page-nav" aria-label="Навигация по проекту"><a href={href('projects/')}><img class="icon" src={asset('icons/arrow-left.svg')} width="18" height="18" alt="" />Все проекты</a><div><a href="#project-details">О проекте</a><a href="#project-materials">Материалы и детали</a></div></nav>
+<section class="page-section project-case"><Gallery images={p.images} title={p.name} client:load /><div class="case-story" id="project-details"><p class="eyebrow">{p.label}</p><section class="case-block"><span class="case-number">01 / ЗАДАЧА</span><h2>Задача проекта</h2><p>{p.task}</p></section><section class="case-block"><span class="case-number">02 / РЕШЕНИЕ</span><h2>Наше решение</h2><p>{p.solution}</p></section><section class="case-block" id="project-materials"><span class="case-number">03 / МАТЕРИАЛЫ</span><h2>Материалы и детали</h2><dl class="specifications">{p.specs.map(([key, value]) => <div><dt>{key}</dt><dd>{value}</dd></div>)}</dl></section><p class="case-price-note">{p.note}</p><a class="button button-gold" href={requestUrl(p.kind, `Понравился проект: ${p.name}`)}>Обсудить похожий проект<img class="icon" src={asset('icons/arrow-right.svg')} width="20" height="20" alt="" /></a></div></section>
+{nextProject && <section class="page-section next-project"><a class="next-project-image" href={href(`projects/${nextProject.slug}/`)}><img src={asset(nextProject.image)} alt={nextProject.name} loading="lazy" width="960" height="720" /></a><div><p class="eyebrow">СЛЕДУЮЩИЙ ПРОЕКТ</p><h2><a href={href(`projects/${nextProject.slug}/`)}>{nextProject.name}</a></h2><p>{nextProject.intro}</p><a class="text-link" href={href(`projects/${nextProject.slug}/`)}>Посмотреть детали<img class="icon" src={asset('icons/arrow-right.svg')} width="20" height="20" alt="" /></a></div></section>}
 <ContactBanner kind={p.kind} />

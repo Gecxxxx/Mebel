@@ -35,6 +35,8 @@ jobs:
         run: npm run test:sites
       - name: Verify generated pages, links and assets
         run: npm run test:static
+      - name: Verify catalog filters and shared links
+        run: npm run test:catalog
       - name: Upload website
         uses: actions/upload-pages-artifact@v4
         with:

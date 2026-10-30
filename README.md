@@ -72,3 +72,6 @@ GitHub Pages используется для согласования демон
 CMS, сервер приёма заявок, CRM, актуализация остатков, корзина и эквайринг требуют отдельного подключения. Сроки, гарантия, тарифы и итоговая комплектация согласуются с ателье; неподтверждённые условия со старых сайтов не перенесены.
 
 Текущий логотип временный. Генерированная иллюстрация материалов явно подписана. Остальные фотографии предоставлены клиентом или перенесены из его прежнего каталога. Лицензии шрифтов и иконок: `public/assets/licenses/`.
+
+
+Catalog, product and project refinements: `src/refinements.css`. Reveal animations: `src/scripts/motion.js` (disabled by reduced-motion preferences, with visible HTML as the fallback). Gallery uses native modal dialogs, keyboard arrows and touch gestures. Catalog query state lives in `src/lib/catalog-state.js`; verify with `npm run test:catalog`.
