@@ -4,7 +4,7 @@ Use Node.js 24 and the checked-in lockfile. Run `npm ci` before development.
 
 ## Design and content
 
-Preserve the approved charcoal and gold palette, serif headings, split hero, asymmetric project grid and responsive layouts. Use the supplied real furniture photographs. The generated materials still life must remain labelled as an illustration. The current crest is temporary and can be replaced when final brand assets arrive.
+Preserve the approved charcoal and gold palette, typographic hierarchy, split hero, asymmetric project grid and responsive layouts. Use the supplied real furniture photographs. The generated materials still life must remain labelled as an illustration. The current crest is temporary and can be replaced when final brand assets arrive.
 
 This is a furniture atelier working with partner factories. Do not invent claims about owning a factory, prices, free delivery, deadlines or guarantees. Keep phone numbers, addresses and schedules accurate.
 
@@ -27,3 +27,7 @@ Centralized content lives in `src/data/`. Each product and project must have sta
 Imported model prices are historical reference values, not verified current offers. Never claim current stock from the old export. The dining-group collection contains individual tables and chairs: clearly state that displayed prices are for individual items and the complete set is agreed separately. Exclude unreviewed Copy cards and do not invent missing project photographs.
 
 This is a demonstration frontend for review. Keep `noindex,follow` until a deliberate production-domain launch. A CMS, production lead storage and payment integration are not connected; never imply otherwise in the UI. Do not put inquiry data or integration secrets into static files or the public repository.
+
+## Latest typography preference
+
+On 30 October 2026 the user explicitly rejected the previous fonts and the homepage headline overlapping its photograph. Use locally hosted Onest for headings and Golos Text for body/UI, with the shared tokens in `src/typography.css`. This supersedes the original serif direction. Hero heading, description and actions must wrap inside the text column with a visible right gutter. Never restore nowrap, oversized text widths or intentional text overlap onto the photo. Let the headline wrap naturally rather than using hard line breaks.
