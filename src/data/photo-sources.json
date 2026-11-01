@@ -1,0 +1,350 @@
+[
+  {
+    "source": "https://disk.yandex.ru/d/2wseVgXS80L1kQ",
+    "sourceFilename": "IMG_0010.jpg",
+    "originalDimensions": [
+      2667,
+      4000
+    ],
+    "downloaded": "2026-11-01",
+    "variants": [
+      {
+        "path": "public/assets/photos/atelier-welcome-480.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 27066
+      },
+      {
+        "path": "public/assets/photos/atelier-welcome-960.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 75584
+      },
+      {
+        "path": "public/assets/photos/atelier-welcome-1600.webp",
+        "width": 1600,
+        "height": 2400,
+        "bytes": 161922
+      }
+    ]
+  },
+  {
+    "source": "https://disk.yandex.ru/d/2wseVgXS80L1kQ",
+    "sourceFilename": "IMG_0102.jpg",
+    "originalDimensions": [
+      2667,
+      4000
+    ],
+    "downloaded": "2026-11-01",
+    "variants": [
+      {
+        "path": "public/assets/photos/dining-room-480.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 35062
+      },
+      {
+        "path": "public/assets/photos/dining-room-960.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 117338
+      },
+      {
+        "path": "public/assets/photos/dining-room-1600.webp",
+        "width": 1600,
+        "height": 2400,
+        "bytes": 279716
+      }
+    ]
+  },
+  {
+    "source": "https://disk.yandex.ru/d/2wseVgXS80L1kQ",
+    "sourceFilename": "IMG_0142.jpg",
+    "originalDimensions": [
+      2667,
+      4000
+    ],
+    "downloaded": "2026-11-01",
+    "variants": [
+      {
+        "path": "public/assets/photos/table-detail-480.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 25062
+      },
+      {
+        "path": "public/assets/photos/table-detail-960.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 64712
+      },
+      {
+        "path": "public/assets/photos/table-detail-1600.webp",
+        "width": 1600,
+        "height": 2400,
+        "bytes": 137442
+      }
+    ]
+  },
+  {
+    "source": "https://disk.yandex.ru/d/2wseVgXS80L1kQ",
+    "sourceFilename": "IMG_0144.jpg",
+    "originalDimensions": [
+      4000,
+      2667
+    ],
+    "downloaded": "2026-11-01",
+    "variants": [
+      {
+        "path": "public/assets/photos/dining-wide-480.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 17672
+      },
+      {
+        "path": "public/assets/photos/dining-wide-960.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 50310
+      },
+      {
+        "path": "public/assets/photos/dining-wide-1600.webp",
+        "width": 1600,
+        "height": 1067,
+        "bytes": 108390
+      }
+    ]
+  },
+  {
+    "source": "https://disk.yandex.ru/d/2wseVgXS80L1kQ",
+    "sourceFilename": "IMG_0151.jpg",
+    "originalDimensions": [
+      2667,
+      4000
+    ],
+    "downloaded": "2026-11-01",
+    "variants": [
+      {
+        "path": "public/assets/photos/bathroom-furniture-480.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 42056
+      },
+      {
+        "path": "public/assets/photos/bathroom-furniture-960.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 123688
+      },
+      {
+        "path": "public/assets/photos/bathroom-furniture-1600.webp",
+        "width": 1600,
+        "height": 2400,
+        "bytes": 312758
+      }
+    ]
+  },
+  {
+    "source": "https://disk.yandex.ru/d/2wseVgXS80L1kQ",
+    "sourceFilename": "IMG_0237.jpg",
+    "originalDimensions": [
+      2667,
+      4000
+    ],
+    "downloaded": "2026-11-01",
+    "variants": [
+      {
+        "path": "public/assets/photos/showroom-space-480.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 46702
+      },
+      {
+        "path": "public/assets/photos/showroom-space-960.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 119946
+      },
+      {
+        "path": "public/assets/photos/showroom-space-1600.webp",
+        "width": 1600,
+        "height": 2400,
+        "bytes": 245212
+      }
+    ]
+  },
+  {
+    "source": "https://disk.yandex.ru/d/2wseVgXS80L1kQ",
+    "sourceFilename": "IMG_0241.jpg",
+    "originalDimensions": [
+      4000,
+      2667
+    ],
+    "downloaded": "2026-11-01",
+    "variants": [
+      {
+        "path": "public/assets/photos/atelier-exterior-480.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 26906
+      },
+      {
+        "path": "public/assets/photos/atelier-exterior-960.webp",
+        "width": 960,
+        "height": 640,
+        "bytes": 78102
+      },
+      {
+        "path": "public/assets/photos/atelier-exterior-1600.webp",
+        "width": 1600,
+        "height": 1067,
+        "bytes": 178790
+      }
+    ]
+  },
+  {
+    "source": "https://disk.yandex.ru/d/2wseVgXS80L1kQ",
+    "sourceFilename": "IMG_9754.jpg",
+    "originalDimensions": [
+      2667,
+      4000
+    ],
+    "downloaded": "2026-11-01",
+    "variants": [
+      {
+        "path": "public/assets/photos/wood-kitchen-480.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 48702
+      },
+      {
+        "path": "public/assets/photos/wood-kitchen-960.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 159434
+      },
+      {
+        "path": "public/assets/photos/wood-kitchen-1600.webp",
+        "width": 1600,
+        "height": 2400,
+        "bytes": 390752
+      }
+    ]
+  },
+  {
+    "source": "https://disk.yandex.ru/d/2wseVgXS80L1kQ",
+    "sourceFilename": "IMG_9756.jpg",
+    "originalDimensions": [
+      2667,
+      4000
+    ],
+    "downloaded": "2026-11-01",
+    "variants": [
+      {
+        "path": "public/assets/photos/kitchen-facades-480.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 50708
+      },
+      {
+        "path": "public/assets/photos/kitchen-facades-960.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 169044
+      },
+      {
+        "path": "public/assets/photos/kitchen-facades-1600.webp",
+        "width": 1600,
+        "height": 2400,
+        "bytes": 420104
+      }
+    ]
+  },
+  {
+    "source": "https://disk.yandex.ru/d/2wseVgXS80L1kQ",
+    "sourceFilename": "IMG_9879.jpg",
+    "originalDimensions": [
+      2667,
+      4000
+    ],
+    "downloaded": "2026-11-01",
+    "variants": [
+      {
+        "path": "public/assets/photos/glass-cabinet-480.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 21842
+      },
+      {
+        "path": "public/assets/photos/glass-cabinet-960.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 57100
+      },
+      {
+        "path": "public/assets/photos/glass-cabinet-1600.webp",
+        "width": 1600,
+        "height": 2400,
+        "bytes": 116824
+      }
+    ]
+  },
+  {
+    "source": "https://disk.yandex.ru/d/2wseVgXS80L1kQ",
+    "sourceFilename": "IMG_9900.jpg",
+    "originalDimensions": [
+      2667,
+      4000
+    ],
+    "downloaded": "2026-11-01",
+    "variants": [
+      {
+        "path": "public/assets/photos/kitchen-light-480.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 35916
+      },
+      {
+        "path": "public/assets/photos/kitchen-light-960.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 110038
+      },
+      {
+        "path": "public/assets/photos/kitchen-light-1600.webp",
+        "width": 1600,
+        "height": 2400,
+        "bytes": 257726
+      }
+    ]
+  },
+  {
+    "source": "https://disk.yandex.ru/d/2wseVgXS80L1kQ",
+    "sourceFilename": "IMG_9902.jpg",
+    "originalDimensions": [
+      2667,
+      4000
+    ],
+    "downloaded": "2026-11-01",
+    "variants": [
+      {
+        "path": "public/assets/photos/wood-and-stone-480.webp",
+        "width": 480,
+        "height": 720,
+        "bytes": 23360
+      },
+      {
+        "path": "public/assets/photos/wood-and-stone-960.webp",
+        "width": 960,
+        "height": 1440,
+        "bytes": 61466
+      },
+      {
+        "path": "public/assets/photos/wood-and-stone-1600.webp",
+        "width": 1600,
+        "height": 2400,
+        "bytes": 139982
+      }
+    ]
+  }
+]

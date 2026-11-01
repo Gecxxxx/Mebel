@@ -1,0 +1,5 @@
+---
+import { photoSrc, photoSrcSet } from '../lib/urls.js';
+const { photo, sizes = '(max-width: 600px) 100vw, 50vw', loading = 'lazy', class: className = '' } = Astro.props;
+---
+<img class={className} src={photoSrc(photo)} srcset={photoSrcSet(photo)} sizes={sizes} alt={photo.alt} width="960" height={photo.landscape ? 640 : 1440} loading={loading} decoding="async" />

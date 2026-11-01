@@ -64,6 +64,21 @@ test('all font and image references in compiled CSS resolve', async () => {
   assert.deepEqual(missing, []);
 });
 
+test('all responsive image variants exist under the deployment base', async () => {
+  const missing = new Set();
+  for (const file of htmlFiles) {
+    const html = await readFile(file, 'utf8');
+    for (const [, candidates] of html.matchAll(/srcset="([^"]+)"/gi)) {
+      for (const candidate of candidates.split(',')) {
+        const url = candidate.trim().split(/\s+/)[0];
+        const target = localFile(url, file);
+        if (target) try { await access(target); } catch { missing.add(url); }
+      }
+    }
+  }
+  assert.deepEqual([...missing], []);
+});
+
 test('catalog data preserves real models and keeps product categories consistent', async () => {
   const data = JSON.parse(await readFile('src/data/catalog.json', 'utf8'));
   assert.ok(data.some(p => p.slug === 'stul-fred'));

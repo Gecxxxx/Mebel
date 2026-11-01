@@ -35,3 +35,7 @@ On 30 October 2026 the user explicitly rejected the previous fonts and the homep
 ## Catalog, galleries and motion
 
 The owner requested consistent catalog/product/project pages, mobile usability and site animations. Shared refinements live in `src/refinements.css`; lightweight reveal behavior lives in `src/scripts/motion.js`. Preserve reduced-motion support and visible content when JavaScript or animation APIs are unavailable. Use the native dialog for enlarged galleries and keep focus/keyboard controls usable. Mobile product headings come before photos. Catalog filters are serialized into the URL so sharing and returning from a product preserve the selection; run `npm run test:catalog` as well as the build checks.
+
+## Real photography
+
+The owner requested a more photographic homepage using supplied sources. The selected 12 original photos come from the client's public Yandex Disk showroom shoot; provenance is in `src/data/photo-sources.json`, presentation data in `src/data/photos.js`. Keep responsive image variants and lazy loading. Do not publish photos of the former short-haired employee from that shoot. Do not describe showroom pictures as completed customer projects or invent team identities. The homepage no longer uses the generated materials illustration. The photo carousel uses native horizontal scrolling, explicit controls and enlarged dialogs; preserve keyboard navigation and reduced-motion behavior, with no automatic advance.

@@ -75,3 +75,5 @@ CMS, сервер приёма заявок, CRM, актуализация ос�
 
 
 Catalog, product and project refinements: `src/refinements.css`. Reveal animations: `src/scripts/motion.js` (disabled by reduced-motion preferences, with visible HTML as the fallback). Gallery uses native modal dialogs, keyboard arrows and touch gestures. Catalog query state lives in `src/lib/catalog-state.js`; verify with `npm run test:catalog`.
+
+Real homepage and showroom photography: `src/data/photos.js`, with original source names and responsive exports recorded in `src/data/photo-sources.json`. The public `assets/photos/` folder contains optimized 480/960/1600px WebP versions; originals and client correspondence are not included. `Photo.astro` renders responsive still images; `PhotoCarousel.jsx` provides native horizontal scrolling, arrow/Home/End navigation and a full-size modal. Layout lives in `src/home-photos.css`. The homepage uses actual showroom photographs instead of the generated materials illustration.
