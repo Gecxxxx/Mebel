@@ -90,6 +90,37 @@ test('catalog data preserves real models and keeps product categories consistent
     assert.ok(product.images.length > 0);
     for (const image of product.images) await access(path.join(root, 'assets', image));
   }
-  const diningPage = await readFile(path.join(root, 'catalog/obedennye-gruppy/index.html'), 'utf8');
-  assert.ok(diningPage.includes('не за комплект'), 'Individual item prices must not be presented as set prices');
+  const diningPage = await readFile(path.join(root, 'stoly-i-stulya/obedennye-gruppy/index.html'), 'utf8');
+  assert.ok(diningPage.includes('каждый предмет подбирается отдельно'), 'Dining groups must describe separate items');
+});
+
+
+test('new navigation, hidden prices and old bookmarked URLs agree', async () => {
+  const models = JSON.parse(await readFile('src/data/catalog.json', 'utf8'));
+  for (const model of models) {
+    const relative = `${model.category}/${model.slug}/index.html`;
+    const page = await readFile(path.join(root, 'stoly-i-stulya', relative), 'utf8');
+    assert.ok(page.includes('Стоимость уточняйте'));
+    assert.doesNotMatch(page, /(?:&quot;|["'])maxPrice(?:&quot;|["']):/);
+    assert.doesNotMatch(page, /(?:&quot;|["'])price(?:&quot;|["']):/);
+    const legacy = await readFile(path.join(root, 'catalog', relative), 'utf8');
+    assert.ok(legacy.includes(`stoly-i-stulya/${model.category}/${model.slug}/`));
+    assert.ok(legacy.includes('location.search + location.hash'));
+  }
+  const furniture = await readFile(path.join(root, 'korpusnaya-mebel/index.html'), 'utf8');
+  for (const label of ['Прихожие', 'Гостиные', 'Детские', 'Спальни', 'Встроенные решения', 'Всегда на связи']) assert.ok(furniture.includes(label));
+  const sitemap = await readFile(path.join(root, 'sitemap.xml'), 'utf8');
+  assert.ok(!sitemap.includes('/catalog/') && !sitemap.includes('/mebel-na-zakaz/'));
+});
+
+test('work albums label project and before-installation images, while About and returns preserve requested distinctions', async () => {
+  const album = await readFile(path.join(root, 'projects/kuhnya-siniy-i-belyy/index.html'), 'utf8');
+  assert.ok(album.includes('До установки мебели'));
+  assert.ok(album.includes('Изображение проекта — не фотография готовой кухни'));
+  const about = await readFile(path.join(root, 'about/index.html'), 'utf8');
+  assert.ok(about.includes('Всегда на связи'));
+  assert.ok(about.includes('Официальный дилер фабрики «ГЕОС Идеал» (Беларусь)'));
+  const warranty = await readFile(path.join(root, 'warranty/index.html'), 'utf8');
+  assert.ok(warranty.includes('Мебель надлежащего качества'));
+  assert.ok(warranty.includes('не ограничивает права покупателя при обнаружении недостатков'));
 });

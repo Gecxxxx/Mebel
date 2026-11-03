@@ -8,9 +8,10 @@ import '../pages.css';
 import '../typography.css';
 import '../refinements.css';
 import '../home-photos.css';
-const { title = 'Семейное ателье мебели в Ельце', description = 'Кухни и мебель по индивидуальным размерам, столы и стулья. Подбор материалов и сопровождение до установки. Ателье мебели Приоритет, Елец.', current = '', noindex = false } = Astro.props;
+import '../warmth.css';
+const { title = 'Семейное ателье мебели в Ельце', description = 'Кухни и мебель по индивидуальным размерам, столы и стулья. Подбор материалов и сопровождение до установки. Ателье мебели Приоритет, Елец.', current = '', noindex = false, canonicalPath } = Astro.props;
 const pageTitle = `${title} — Приоритет`;
-const canonical = new URL(Astro.url.pathname, Astro.site || 'https://gecxxxx.github.io').href;
+const canonical = new URL(canonicalPath ? href(canonicalPath) : Astro.url.pathname, Astro.site || 'https://gecxxxx.github.io').href;
 const indexable = import.meta.env.PUBLIC_INDEXABLE === 'true' && !noindex;
 ---
 <!doctype html>

@@ -39,3 +39,13 @@ The owner requested consistent catalog/product/project pages, mobile usability a
 ## Real photography
 
 The owner requested a more photographic homepage using supplied sources. The selected 12 original photos come from the client's public Yandex Disk showroom shoot; provenance is in `src/data/photo-sources.json`, presentation data in `src/data/photos.js`. Keep responsive image variants and lazy loading. Do not publish photos of the former short-haired employee from that shoot. Do not describe showroom pictures as completed customer projects or invent team identities. The homepage no longer uses the generated materials illustration. The photo carousel uses native horizontal scrolling, explicit controls and enlarged dialogs; preserve keyboard navigation and reduced-motion behavior, with no automatic advance.
+
+## Client revisions approved on 3 November 2026
+
+Navigation has three furniture directions: Кухни, Корпусная мебель, Столы и стулья. Furniture made to order includes kitchens; never present it as a mutually exclusive category. Корпусная мебель covers wardrobes, walk-in closets, entrance halls, living rooms, children's rooms, bedrooms and built-ins.
+
+Keep all 168 dining models, their variants, non-price filters and favorites. Hide historical prices from rendered pages and island data; use «Стоимость уточняйте». Price sorting and historical price filters are removed. Old catalog and custom-furniture URLs redirect to their new canonical counterparts while retaining query/hash; exclude aliases from the sitemap.
+
+The owner confirmed the new Telegram photos belong to the atelier. Selected photos are grouped by object on Наши работы, with category filters and relevant albums on service pages. Never invent missing materials, locations, client identities or photographs of bedrooms/children's rooms. Before-installation views, project images and process shots need explicit captions, including in enlarged galleries. Original appearance of furniture and rooms must be preserved. Technical responsive conversion is not AI enhancement. Source filenames and responsive dimensions live in src/data/work-photo-sources.json.
+
+Preserve the dark/gold palette and local Onest/Golos fonts. Add warmth through real photos, restrained textures and small decorative details. Both the summary step 03 and third About benefit use «Всегда на связи» and the approved quality/environment/safety wording; the full installation step stays in the complete order process. About must state «Официальный дилер фабрики „ГЕОС Идеал“ (Беларусь)». The returns explanation distinguishes furniture of proper quality made to individual requirements from claims about defects.

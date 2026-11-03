@@ -2,7 +2,7 @@
 const preference = matchMedia('(prefers-reduced-motion: reduce)');
 const root = document.querySelector('main');
 if (root && 'IntersectionObserver' in window && typeof Element.prototype.animate === 'function') {
-  const targets = '.hero-copy, .service-strip>div, .section-title, .projects-heading, .project-card, .catalog-card, .editorial-copy, .editorial-image, .small-steps>article, .showroom-copy, .page-heading, .catalog-filters, .project-index-card, .product-heading, .product-overview, .photo-gallery, .case-block, .next-project>div';
+  const targets = '.hero-copy, .service-strip>div, .section-title, .projects-heading, .project-card, .catalog-card, .editorial-copy, .editorial-image, .small-steps>article, .showroom-copy, .page-heading, .catalog-filters, .project-index-card, .work-card, .product-heading, .product-overview, .photo-gallery, .case-block, .next-project>div';
   const seen = new WeakSet();
   const running = new Set();
   const observer = new IntersectionObserver(entries => {

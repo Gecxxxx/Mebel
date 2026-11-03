@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { asset, money, productUrl } from '../lib/urls.js';
+import { asset, productUrl } from '../lib/urls.js';
 import Icon from './Icon.jsx';
 import { emptyFilters, readFilters, writeFilters, filterProducts } from '../lib/catalog-state.js';
 
@@ -17,12 +17,12 @@ export function useFavorites() {
 export function ProductCard({ product, saved = false, onFavorite, ready = true }) {
   return <article className="catalog-card">
     <div className="catalog-card-image"><a href={productUrl(product)} aria-label={`Открыть: ${product.name}`}><img src={asset(product.images[0])} alt={product.name} loading="lazy" width="600" height="600" /></a>{onFavorite && <button disabled={!ready} className={`favorite-button ${saved ? 'saved' : ''}`} aria-label={`${saved ? 'Убрать из избранного' : 'В избранное'}: ${product.name}`} aria-pressed={saved} onClick={() => onFavorite(product.id)}><Icon name={saved ? 'heart-fill' : 'heart'} size={23} /></button>}</div>
-    <div className="catalog-card-meta"><p>{product.brand || 'Подборка ателье'}</p><h3><a href={productUrl(product)}>{product.name}</a></h3><div className="catalog-card-bottom"><span>{product.maxPrice > product.price ? 'от ' : ''}{money(product.price)}</span><a href={productUrl(product)} aria-label={`Подробнее: ${product.name}`}><Icon /></a></div></div>
+    <div className="catalog-card-meta"><p>{product.brand || 'Подборка ателье'}</p><h3><a href={productUrl(product)}>{product.name}</a></h3><div className="catalog-card-bottom"><span>Стоимость уточняйте</span><a href={productUrl(product)} aria-label={`Подробнее: ${product.name}`}><Icon /></a></div></div>
   </article>;
 }
 export default function Catalog({ products }) {
   const [filters, setFilters] = useState(emptyFilters);
-  const { search, brand, sort, ceiling, onlySaved } = filters;
+  const { search, brand, sort, onlySaved } = filters;
   const [limit, setLimit] = useState(18);
   const [favorites, toggle] = useFavorites();
   const [filtersOpen, setFiltersOpen] = useState(false);
@@ -43,16 +43,15 @@ export default function Catalog({ products }) {
   const filtered = useMemo(() => filterProducts(products, filters, favorites), [products, filters, favorites]);
   const update = (name, value) => { setFilters(p => ({ ...p, [name]: value })); setLimit(18); };
   const reset = () => { setFilters(emptyFilters); setLimit(18); };
-  const active = [search.trim() && ['search', `Поиск: ${search.trim()}`, ''], brand && ['brand', brand, ''], ceiling && ['ceiling', `До ${money(ceiling)}`, ''], onlySaved && ['onlySaved', 'Избранное', false]].filter(Boolean);
-  const extraCount = Number(Boolean(brand)) + Number(Boolean(ceiling)) + Number(sort !== 'recommended');
+  const active = [search.trim() && ['search', `Поиск: ${search.trim()}`, ''], brand && ['brand', brand, ''], onlySaved && ['onlySaved', 'Избранное', false]].filter(Boolean);
+  const extraCount = Number(Boolean(brand)) + Number(sort !== 'recommended');
   return <div className="catalog-explorer">
-    <form className={`catalog-filters ${filtersOpen ? 'filters-expanded' : ''}`} role="search" aria-busy={!ready} aria-label="Поиск и фильтры каталога" onSubmit={e => e.preventDefault()}>
-      <label className="search-field"><span>Найти свою модель</span><div><Icon name="magnifying-glass" size={21} /><input disabled={!ready} type="search" aria-label="Поиск по каталогу" placeholder="Название или бренд" value={search} onChange={e => update('search', e.target.value)} /></div></label>
+    <form className={`catalog-filters ${filtersOpen ? 'filters-expanded' : ''}`} role="search" aria-busy={!ready} aria-label="Поиск и фильтры столов и стульев" onSubmit={e => e.preventDefault()}>
+      <label className="search-field"><span>Найти свою модель</span><div><Icon name="magnifying-glass" size={21} /><input disabled={!ready} type="search" aria-label="Поиск столов и стульев" placeholder="Название или бренд" value={search} onChange={e => update('search', e.target.value)} /></div></label>
       <button disabled={!ready} className="mobile-filter-toggle" type="button" aria-expanded={filtersOpen} aria-controls="catalog-filter-fields" onClick={() => setFiltersOpen(!filtersOpen)}><span>{filtersOpen ? 'Скрыть фильтры' : 'Фильтры и сортировка'}{extraCount > 0 && <b>{extraCount}</b>}</span><Icon name="caret-right" size={18} /></button>
       <div className="catalog-filter-fields" id="catalog-filter-fields">
         <label><span>Бренд</span><select disabled={!ready} value={brand} onChange={e => update('brand', e.target.value)}><option value="">Все бренды</option>{brands.map(b => <option key={b}>{b}</option>)}</select></label>
-        <label><span>Цена из каталога, до ₽</span><input disabled={!ready} type="number" min="0" inputMode="numeric" placeholder="Без ограничения" value={ceiling} onChange={e => update('ceiling', e.target.value)} /></label>
-        <label><span>Сортировка</span><select disabled={!ready} value={sort} onChange={e => update('sort', e.target.value)}><option value="recommended">По умолчанию</option><option value="low">Сначала дешевле</option><option value="high">Сначала дороже</option><option value="name">По названию</option></select></label>
+        <label><span>Сортировка</span><select disabled={!ready} value={sort} onChange={e => update('sort', e.target.value)}><option value="recommended">По умолчанию</option><option value="name">По названию</option></select></label>
         <button className="button button-outline mobile-filter-apply" type="button" onClick={() => setFiltersOpen(false)}>Показать модели ({filtered.length})<Icon /></button>
       </div>
     </form>

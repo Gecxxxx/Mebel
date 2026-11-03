@@ -1,0 +1,11 @@
+---
+import Heading from './Heading.astro';
+import { href } from '../lib/urls.js';
+const { destination } = Astro.props;
+const target = href(destination);
+---
+<Heading label="НОВЫЙ АДРЕС" title="Эта страница переехала." intro="Сохранили для вас переход к нужной мебели." />
+<section class="page-section"><a class="button button-gold" href={target}>Открыть страницу</a></section>
+<script is:inline define:vars={{ target }}>
+  location.replace(target + location.search + location.hash);
+</script>

@@ -7,7 +7,7 @@ export default function RequestForm() {
   const [values, setValues] = useState({ name: '', phone: '', kind: 'Кухня', city: 'Елец', comment: '' });
   const [ready, setReady] = useState(false);
   const [errors, setErrors] = useState({}); const [prepared, setPrepared] = useState(false); const [copyState, setCopyState] = useState(''); const successRef = useRef(null);
-  const kinds = ['Кухня', 'Шкаф или гардеробная', 'Стол и стулья', 'Другая мебель', 'Визит в салон'];
+  const kinds = ['Кухня', 'Шкаф или гардеробная', 'Корпусная мебель', 'Детская', 'Спальня', 'Стол и стулья', 'Другая мебель', 'Визит в салон'];
   useEffect(() => { const params = new URLSearchParams(location.search); setValues(v => ({ ...v, kind: kinds.includes(params.get('kind')) ? params.get('kind') : v.kind, comment: (params.get('comment') || '').slice(0, 3000) })); setReady(true); }, []);
   useEffect(() => { if (prepared) successRef.current?.focus(); }, [prepared]);
   const update = e => { const { name, value } = e.target; setValues(v => ({ ...v, [name]: value })); setErrors(p => ({ ...p, [name]: '' })); };
