@@ -1,0 +1,26 @@
+{
+  "image": "photos/atelier-exterior-clean-960.webp",
+  "width": 1536,
+  "height": 1024,
+  "variants": [
+    {
+      "image": "photos/atelier-exterior-clean-480.webp",
+      "width": 480,
+      "height": 320
+    },
+    {
+      "image": "photos/atelier-exterior-clean-960.webp",
+      "width": 960,
+      "height": 640
+    },
+    {
+      "image": "photos/atelier-exterior-clean-1536.webp",
+      "width": 1536,
+      "height": 1024
+    }
+  ],
+  "landscape": true,
+  "title": "Александровская, 1/1",
+  "alt": "Фасад и вход в ателье Приоритет на Александровской, 1/1",
+  "category": "Ждём вас в гости"
+}

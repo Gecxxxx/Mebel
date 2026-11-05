@@ -9,3 +9,7 @@ dist/
 Thumbs.db
 qa/
 design-qa.md
+.runtime/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal

@@ -1,0 +1,21 @@
+{
+  "image": "photos/material-samples-960.webp",
+  "width": 960,
+  "height": 1280,
+  "variants": [
+    {
+      "image": "photos/material-samples-480.webp",
+      "width": 480,
+      "height": 640
+    },
+    {
+      "image": "photos/material-samples-960.webp",
+      "width": 960,
+      "height": 1280
+    }
+  ],
+  "title": "Материалы и оттенки",
+  "alt": "Образцы материалов и оттенков для выбора отделки мебели",
+  "category": "Подбор материалов",
+  "sourceFilename": "photo_14_2026-11-03_19-54-19.jpg"
+}

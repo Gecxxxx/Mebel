@@ -8,7 +8,7 @@ Preserve the approved charcoal and gold palette, typographic hierarchy, split he
 
 This is a furniture atelier working with partner factories. Do not invent claims about owning a factory, prices, free delivery, deadlines or guarantees. Keep phone numbers, addresses and schedules accurate.
 
-The consultation form prepares a message for the visitor to copy and send. Do not show a sent-success state unless an actual delivery integration is connected. Do not add backend services or new routes without an explicit request.
+The owner explicitly requested server-side lead delivery on 4 November 2026. Forms and the five-question quiz now post to the separate Sites lead service. Show acceptance only after actual server persistence; show delivery only when its API confirms delivery. Never expose tokens or subscription credentials in frontend code.
 
 ## Build and publication
 
@@ -26,7 +26,7 @@ Centralized content lives in `src/data/`. Each product and project must have sta
 
 Imported model prices are historical reference values, not verified current offers. Never claim current stock from the old export. The dining-group collection contains individual tables and chairs: clearly state that displayed prices are for individual items and the complete set is agreed separately. Exclude unreviewed Copy cards and do not invent missing project photographs.
 
-This is a demonstration frontend for review. Keep `noindex,follow` until a deliberate production-domain launch. A CMS, production lead storage and payment integration are not connected; never imply otherwise in the UI. Do not put inquiry data or integration secrets into static files or the public repository.
+This is a demonstration frontend for review. Keep `noindex,follow` until a deliberate production-domain launch. A CMS and payment integration are not connected. Leads are stored in the separate private D1 database behind the public Sites API. Do not put inquiry data or integration secrets into static files or the public repository.
 
 ## Latest typography preference
 
@@ -50,4 +50,14 @@ The owner confirmed the new Telegram photos belong to the atelier. Selected phot
 
 Preserve the dark/gold palette and local Onest/Golos fonts. Add warmth through real photos, restrained textures and small decorative details. Both the summary step 03 and third About benefit use «Всегда на связи» and the approved quality/environment/safety wording; the full installation step stays in the complete order process. About must state «Официальный дилер фабрики „ГЕОС Идеал“ (Беларусь)». The returns explanation distinguishes furniture of proper quality made to individual requirements from claims about defects.
 
-The owner rejected the showroom-space photograph (IMG_0237) because the blurred foreground plant obscures the furniture. Do not use it in the first process step or showroom galleries. `photos.space` now uses the clear, wide dining-group photograph; keep the furniture visible when selecting replacement images.
+The owner rejected the showroom-space photograph (IMG_0237) because the blurred foreground plant obscures the furniture. Do not use it in the first process step or showroom galleries. Keep furniture visible when selecting replacements; avoid repeating the same dining group throughout the homepage.
+
+## Client revisions approved on 4–5 November 2026
+
+The owner requested larger outlined navigation, messenger icons, a larger family-atelier eyebrow without the city, and a new homepage headline font. Use locally hosted Manrope only for that headline; retain Onest/Golos elsewhere and natural wrapping inside the text column. Shared revisions live in `src/client-revisions.css`.
+
+Use varied real photographs on direction cards, a compact carousel with prominent arrows, and photographic categories on the corpus-furniture page. The user confirmed the woman with long dark hair dressed in white is the owner; she may be identified as such. The facade has a restrained ImageGen retouch, recorded in `src/data/exterior-photo-provenance.json`. Keep original photo sources. Present tables/chairs on consistent light stages without changing product geometry or materials.
+
+«Давайте знакомиться» belongs to About. Contacts keeps locations, maps, atelier photos, social icons and project/contact actions. Main WhatsApp uses +7 (961) 606-93-09.
+
+The separate Sites service accepts website applications and connects any Telegram/MAX recipient through `/start`, a server-side password and `/status`; `/stop` unsubscribes. Multiple subscribers are independent. Do not replace this with manual recipient IDs or expose the password. Backend source and operating notes are in `lead-service/`; deployed source is in the adjacent `prioritet-leads-api` checkout. Run `npm run test:leads` with existing build/static/catalog checks before publication.

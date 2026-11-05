@@ -1,0 +1,5 @@
+{
+  "checked": "2026-11-05",
+  "aleksandrovskaya": { "address": "Елец, Александровская, 1/1", "longitude": 38.454775, "latitude": 52.633799, "source": "https://elets.jsprav.ru/magazinyi-mebeli/prioritet-1/", "field": "GeoCoordinates" },
+  "koroleva": { "address": "Елец, улица Королёва, 1", "longitude": 38.481410, "latitude": 52.612829, "source": "https://roskarta.net/Елец/улица_Королёва/1" }
+}

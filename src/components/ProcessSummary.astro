@@ -1,0 +1,7 @@
+---
+import { process, supportPromise } from '../data/site.js';
+import { processPhotos } from '../data/editorial.js';
+import Photo from './Photo.astro';
+import { href, asset } from '../lib/urls.js';
+---
+<section class="page-section home-process"><div class="section-heading-line"><div class="section-title"><p class="eyebrow">ПОНЯТНЫЙ ПУТЬ</p><h2>От идеи до установки.</h2></div><a class="text-link" href={href('how-to-order/')}>Как мы работаем<img class="icon" src={asset('icons/arrow-right.svg')} width="20" height="20" alt="" /></a></div><div class="small-steps">{[process[0], process[2], supportPromise].map(([title, text], i) => <article><Photo photo={processPhotos[i]} class="process-photo" sizes="(max-width: 600px) 100vw, 33vw" /><span>0{i + 1}</span><h3>{title}</h3><p>{text}</p></article>)}</div></section>

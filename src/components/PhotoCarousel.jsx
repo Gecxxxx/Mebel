@@ -41,6 +41,7 @@ export default function PhotoCarousel({ photos, label = 'Фотографии с
   };
   const changePhoto = direction => setIndex(i => (i + direction + photos.length) % photos.length);
   return <div className={`photo-carousel ${inset ? 'photo-carousel--inset' : ''}`} role="region" aria-label={label} aria-roledescription="карусель">
+    <div className="photo-carousel-top"><p><Icon name="arrow-left" size={18} />Листайте фотографии<Icon size={18} /></p><div><button disabled={!ready || view.atStart} className="icon-button" aria-label="Предыдущие фотографии" onClick={() => step(-1)}><Icon name="arrow-left" size={24} /></button><button disabled={!ready || view.atEnd} className="icon-button" aria-label="Следующие фотографии" onClick={() => step(1)}><Icon size={24} /></button></div></div>
     <ol ref={rail} className="photo-rail" tabIndex={0} aria-label="Фотографии — используйте стрелки влево и вправо" onScroll={scheduleRefresh} onKeyDown={e => {
       if (e.target !== e.currentTarget) return;
       if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); step(e.key === 'ArrowRight' ? 1 : -1); }
@@ -51,7 +52,7 @@ export default function PhotoCarousel({ photos, label = 'Фотографии с
     }}>
       {photos.map((photo, i) => <li key={photo.image}><figure>
         <button disabled={!ready} className="photo-rail-open" aria-label={`Увеличить фото: ${photo.title}`} onClick={() => { setIndex(i); setOpened(true); }}>
-          <img src={photoSrc(photo)} srcSet={photoSrcSet(photo)} sizes="(max-width: 600px) 82vw, (max-width: 900px) 45vw, 36vw" alt={photo.alt} width="960" height={photo.landscape ? 640 : 1440} loading="lazy" decoding="async" />
+          <img src={photoSrc(photo)} srcSet={photoSrcSet(photo)} sizes="(max-width: 600px) 76vw, (max-width: 900px) 38vw, 28vw" alt={photo.alt} width={photo.width || 960} height={photo.height || (photo.landscape ? 640 : 1440)} loading="lazy" decoding="async" />
           <span className="photo-rail-zoom"><Icon name="magnifying-glass" size={20} /></span>
         </button>
         <figcaption><span>{photo.category}</span><h3>{photo.title}</h3></figcaption>

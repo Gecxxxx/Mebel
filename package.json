@@ -11,7 +11,8 @@
     "preview:pages": "astro preview --base=/Mebel/",
     "test:sites": "node --test tests/sites-worker.test.mjs",
     "test:static": "node --test tests/static-site.test.mjs",
-    "test:catalog": "node --test tests/catalog-state.test.mjs"
+    "test:catalog": "node --test tests/catalog-state.test.mjs",
+    "test:leads": "node --test lead-service/tests/worker.test.mjs tests/quiz.test.mjs"
   },
   "dependencies": {
     "@astrojs/react": "7.1.2",
