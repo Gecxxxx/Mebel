@@ -161,10 +161,12 @@ export async function fetchHandler(request, env, ctx) {
       if (url.pathname === '/internal/configure' && request.method === 'POST') {
         const base = new URL(env.SERVICE_ORIGIN);
         if (base.protocol !== 'https:') throw new Error('Invalid service origin');
+        const maxWebhook = new URL(env.MAX_WEBHOOK_URL || '/webhooks/max', base);
+        if (maxWebhook.protocol !== 'https:') throw new Error('Invalid MAX webhook URL');
         await callBot(env, 'telegram', 'setWebhook', { url: `${base.origin}/webhooks/telegram`, secret_token: env.TELEGRAM_WEBHOOK_SECRET, allowed_updates: ['message'], max_connections: 1, drop_pending_updates: false });
         const current = await callBot(env, 'max', '/subscriptions', undefined, 'GET');
-        if (!current.subscriptions?.some(s => s.url === `${base.origin}/webhooks/max`)) {
-          const result = await callBot(env, 'max', '/subscriptions', { url: `${base.origin}/webhooks/max`, update_types: ['bot_started','message_created'], secret: env.MAX_WEBHOOK_SECRET });
+        if (!current.subscriptions?.some(s => s.url === maxWebhook.href)) {
+          const result = await callBot(env, 'max', '/subscriptions', { url: maxWebhook.href, update_types: ['bot_started','message_created'], secret: env.MAX_WEBHOOK_SECRET });
           if (!result.success) throw new Error('MAX subscription failed');
         }
         await callBot(env, 'telegram', 'setMyCommands', { commands: [{ command: 'start', description: 'Подписаться на заявки' }, { command: 'status', description: 'Проверить подписку' }, { command: 'stop', description: 'Отключить получение заявок' }] });

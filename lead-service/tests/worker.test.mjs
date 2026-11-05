@@ -117,6 +117,34 @@ test('public API rejects forged webhooks, public reads, other origins and oversi
   env.sqlite.close();
 });
 
+test('MAX configuration preserves a separate website callback and still supports the direct service URL', async t => {
+  const env = database();
+  env.SERVICE_ORIGIN = 'https://service.example';
+  env.MAX_API_BASE_URL = 'https://platform-api.max.ru';
+  const callbacks = [];
+  const network = t.mock.method(globalThis, 'fetch', async (url, options) => {
+    if (url.endsWith('/subscriptions')) {
+      if (options.method === 'GET') return Response.json({ subscriptions: [] });
+      callbacks.push(JSON.parse(options.body));
+      return Response.json({ success: true });
+    }
+    return Response.json({ ok: true, result: true });
+  });
+  const configure = () => fetchHandler(new Request('https://service.example/internal/configure', { method: 'POST', headers: { Authorization: `Bearer ${env.ADMIN_TOKEN}` } }), env, { waitUntil() {} });
+  for (const callback of [undefined, 'https://website.example/webhooks/max']) {
+    env.MAX_WEBHOOK_URL = callback;
+    assert.equal((await configure()).status, 200);
+    assert.equal(callbacks.at(-1).url, callback || 'https://service.example/webhooks/max');
+    assert.deepEqual(callbacks.at(-1).update_types, ['bot_started', 'message_created']);
+    assert.equal(callbacks.at(-1).secret, env.MAX_WEBHOOK_SECRET);
+  }
+  const count = network.mock.calls.length;
+  env.MAX_WEBHOOK_URL = 'http://website.example/webhooks/max';
+  assert.equal((await configure()).status, 500);
+  assert.equal(network.mock.calls.length, count);
+  env.sqlite.close();
+});
+
 test('delivery is acknowledged only after API success and failures remain queued', async t => {
   const env = database();
   await subscribe(env, 'telegram', '11');
