@@ -1,0 +1,6 @@
+---
+import { marketing } from '../data/promotions.js';
+import { asset } from '../lib/urls.js';
+const { compact = false } = Astro.props;
+---
+<section class:list={['materials-download page-section', { 'materials-download-compact': compact }]} aria-labelledby="materials-download-title"><a class="materials-cover" href={marketing.catalog} target="_blank" rel="noreferrer" aria-label="Открыть мини-каталог проектов и цен"><img src={marketing.cover} alt="Обложка мини-каталога кухонь и шкафов ателье «Приоритет»" width="540" height="959" loading="lazy" /></a><div class="materials-download-copy"><p class="eyebrow">ПРИМЕРЫ, КОТОРЫЕ МОЖНО СОХРАНИТЬ</p><h2 id="materials-download-title">Идеи и стоимость —<br />в небольшом каталоге.</h2><p>Три кухни и шкаф с рифлёными фасадами: фотографии, материалы и стоимость показанных проектов со сборкой.</p><a class="button button-outline" href={marketing.catalog} target="_blank" rel="noreferrer">Посмотреть каталог<img class="icon" src={asset('icons/arrow-right.svg')} width="20" height="20" alt="" /></a><span class="materials-file-note">PDF · 6 страниц · 2,8 МБ · без регистрации</span></div></section>

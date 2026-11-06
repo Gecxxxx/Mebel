@@ -1,0 +1,8 @@
+---
+import { projectExamples } from '../data/promotions.js';
+import { asset, requestUrl } from '../lib/urls.js';
+const { category } = Astro.props;
+const examples = projectExamples.filter(project => project.category === category);
+const price = value => new Intl.NumberFormat('ru-RU').format(value);
+---
+<section class="page-section project-examples" aria-labelledby="project-examples-title"><div class="section-title"><p class="eyebrow">РЕАЛЬНЫЕ РАБОТЫ И КОМПЛЕКТАЦИИ</p><h2 id="project-examples-title">Сколько стоит похожая идея.</h2></div><p class="examples-intro">Примеры из каталога ателье. Стоимость указана за показанный проект со сборкой; размеры и материалы для вашего дома рассчитаем отдельно.</p><div class:list={['example-grid', { 'example-grid-single': examples.length === 1 }]}>{examples.map(project => <article class="example-card"><img src={asset(`marketing/example-${project.id}-960.webp`)} srcset={`${asset(`marketing/example-${project.id}-480.webp`)} 480w, ${asset(`marketing/example-${project.id}-960.webp`)} ${project.width}w`} sizes="(max-width: 600px) 100vw, 33vw" alt={project.title} width={project.width} height={project.height} loading="lazy" /><div class="example-card-copy"><h3>{project.title}</h3><p>{project.material}</p><span class="example-price">{price(project.price)} ₽</span><span class="example-price-caption">Стоимость этого проекта со сборкой</span><a class="text-link" href={requestUrl(project.kind, `Понравился пример из каталога: ${project.title}. Хочу рассчитать похожий проект.`)}>Рассчитать похожий проект<img class="icon" src={asset('icons/arrow-right.svg')} width="18" height="18" alt="" /></a></div></article>)}</div></section>

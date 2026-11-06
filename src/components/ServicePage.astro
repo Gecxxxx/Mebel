@@ -5,6 +5,8 @@ import WorkCard from './WorkCard.astro';
 import WorkPhoto from './WorkPhoto.astro';
 import PhotoCarousel from './PhotoCarousel.jsx';
 import ProcessSummary from './ProcessSummary.astro';
+import ProjectExamples from './ProjectExamples.astro';
+import MaterialsDownload from './MaterialsDownload.astro';
 import { asset, href, requestUrl } from '../lib/urls.js';
 import { projects } from '../data/site.js';
 import { furnitureTiles, workBySlug, carouselPhoto } from '../data/editorial.js';
@@ -19,4 +21,5 @@ const photos = related.map(carouselPhoto);
 {!isFurniture && <section class="page-section inset-section"><div class="section-title"><p class="eyebrow">ПОДХОДЯЩЕЕ РЕШЕНИЕ</p><h2>У каждого дома свой характер.</h2></div><div class="solution-grid">{service.choices.map(([title, text, link]) => <article><h3>{title}</h3><p>{text}</p>{link && <a href={href(link)} class="text-link">Подробнее<img class="icon" src={asset('icons/arrow-right.svg')} width="18" height="18" alt="" /></a>}</article>)}</div></section>}
 <section class="page-section compact-cost"><div><p class="eyebrow">О СТОИМОСТИ</p><h2>Сначала ваша идея. Затем точный расчёт.</h2></div><div><p>{service.detail}</p><a class="text-link" href={href('materials/')}>Материалы и фурнитура</a></div></section>
 <ProcessSummary />
+{['kuhni', 'korpusnaya-mebel'].includes(path) && <><ProjectExamples category={path} /><MaterialsDownload /></>}
 <ContactBanner kind={service.kind} />

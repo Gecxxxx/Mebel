@@ -41,6 +41,8 @@ jobs:
         run: npm run test:leads
       - name: Verify MAX webhook relay
         run: npm run test:webhooks
+      - name: Verify promotion behavior and marketing materials
+        run: npm run test:promotions
       - name: Upload website
         uses: actions/upload-pages-artifact@v4
         with:

@@ -13,7 +13,8 @@
     "test:static": "node --test tests/static-site.test.mjs",
     "test:catalog": "node --test tests/catalog-state.test.mjs",
     "test:leads": "node --test lead-service/tests/worker.test.mjs tests/quiz.test.mjs",
-    "test:webhooks": "node --test tests/max-webhook.test.mjs"
+    "test:webhooks": "node --test tests/max-webhook.test.mjs",
+    "test:promotions": "node --test tests/promotion-state.test.mjs tests/marketing.test.mjs"
   },
   "dependencies": {
     "@astrojs/react": "7.1.2",

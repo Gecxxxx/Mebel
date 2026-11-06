@@ -1,0 +1,18 @@
+{
+  "source": "https://disk.yandex.ru/d/USExOe0AjiIEMA",
+  "received": "2026-11-06",
+  "catalog": {
+    "sha256": "286af8706addabcfca6a8f1eb7c013396526e8c6f8cec3399e2b1a11b7ef6c57",
+    "pages": 6,
+    "priceScope": "Shown project configurations with assembly; not historical dining catalog prices"
+  },
+  "video": {
+    "originalSha256": "6284a45f7e2ad09e841f5275fad80948e428b6061cc60ba85599860fc696a619",
+    "durationSeconds": 52.52,
+    "websiteVersion": "720p H.264; narration retained; 11.8–15.55 seconds use a supplied furniture photograph instead of an unconfirmed employee shot"
+  },
+  "certificate": {
+    "originalSha256": "2b9bd4e288a0faa971c6bceb886169bb4a6ff4c8007537c03552dfc84cbbaa00",
+    "conditions": "10% furniture / 15% two or more items in one contract; maximum 100000 RUB; three months from issue; instead of gifts"
+  }
+}

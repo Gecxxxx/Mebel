@@ -1,0 +1,5 @@
+---
+import { marketing, offerRequestUrl } from '../data/promotions.js';
+import { asset } from '../lib/urls.js';
+---
+<section class="page-section promotion-callout"><div><p class="eyebrow">ДЛЯ ВАШЕГО НОВОГО ИНТЕРЬЕРА</p><h2>Особое предложение<br />для вашей мебели.</h2><p>Сертификат на скидку 10% или 15% комплексного заказа — до 100 000 ₽. Или подарки к заказу кухни.</p><a class="button button-outline" href={offerRequestUrl()} data-promotion-open>Посмотреть предложения<img class="icon" src={asset('icons/arrow-right.svg')} width="20" height="20" alt="" /></a><span>Сертификат действует вместо подарков. Подробности — в условиях.</span></div><img src={marketing.certificate} alt="Сертификат ателье «Приоритет»" width="760" height="984" loading="lazy" /></section>
