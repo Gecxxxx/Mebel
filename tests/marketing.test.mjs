@@ -16,6 +16,14 @@ test('the supplied PDF stays intact and video is loaded only on demand', async (
     assert.match(page, /atelier-poster\.webp/);
     assert.match(page, /atelier-introduction\.mp4/);
     assert.match(page, /id="atelier-video"/);
+    if (path === 'index.html') {
+      assert.match(page, /class="page-section home-video"/);
+      assert.ok(page.indexOf('class="project-quiz') < page.indexOf('id="atelier-video"'));
+      assert.ok(page.indexOf('id="atelier-video"') < page.indexOf('class="page-section promotion-callout"'));
+    } else {
+      assert.match(page, /class="page-section atelier-video-section"/);
+      assert.ok(!page.includes('class="page-section home-video"'));
+    }
   }
 });
 

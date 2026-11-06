@@ -1,0 +1,19 @@
+---
+import { marketing } from '../data/promotions.js';
+---
+<section class="page-section home-video" id="atelier-video" aria-labelledby="home-video-title">
+  <div class="home-video-card">
+    <div class="home-video-copy">
+      <p class="eyebrow">ВИДЕОВИЗИТКА АТЕЛЬЕ</p>
+      <h2 id="home-video-title">За мебелью — наша история.</h2>
+      <p>Маргарита Ткаченко — об ателье, которое начинали её родители, и внимании к каждой детали.</p>
+    </div>
+    <figure>
+      <video controls playsinline preload="none" poster={marketing.poster} width="1280" height="720" aria-label="Маргарита Ткаченко об ателье мебели «Приоритет»">
+        <source src={marketing.video} type="video/mp4" />
+        Ваш браузер не поддерживает встроенное видео. <a href={marketing.video}>Открыть видеовизитку</a>
+      </video>
+      <figcaption>53 секунды · со звуком и субтитрами</figcaption>
+    </figure>
+  </div>
+</section>
