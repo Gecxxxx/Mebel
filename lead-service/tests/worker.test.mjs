@@ -117,6 +117,24 @@ test('public API rejects forged webhooks, public reads, other origins and oversi
   env.sqlite.close();
 });
 
+test('signed lead gateway keeps per-visitor rate limits and forged forwarding headers cannot evade them', async () => {
+  const env = database(), context = { waitUntil() {} };
+  env.LEAD_PROXY_SECRET = 'separate-lead-proxy-signature-for-tests';
+  const send = (address, signature = env.LEAD_PROXY_SECRET) => fetchHandler(new Request('https://api.example/api/leads', {
+    method: 'POST',
+    headers: { 'CF-Connecting-IP': '203.0.113.10', 'X-Prioritet-Client-IP': address, 'X-Prioritet-Proxy-Secret': signature },
+    body: JSON.stringify({ consent: false }),
+  }), env, context);
+  for (let i = 0; i < 12; i++) assert.equal((await send('198.51.100.20')).status, 400);
+  assert.equal((await send('198.51.100.20')).status, 429);
+  assert.equal((await send('198.51.100.21')).status, 400, 'Another visitor must not share the proxy IP rate limit');
+  for (let i = 0; i < 12; i++) assert.equal((await send(`198.51.100.${100+i}`, 'forged-signature')).status, 400);
+  assert.equal((await send('198.51.100.222', 'forged-signature')).status, 429);
+  assert.equal(env.sqlite.prepare('SELECT COUNT(*) AS n FROM leads').get().n, 0);
+  assert.equal(env.sqlite.prepare('SELECT COUNT(*) AS n FROM outbox').get().n, 0);
+  env.sqlite.close();
+});
+
 test('MAX configuration preserves a separate website callback and still supports the direct service URL', async t => {
   const env = database();
   env.SERVICE_ORIGIN = 'https://service.example';

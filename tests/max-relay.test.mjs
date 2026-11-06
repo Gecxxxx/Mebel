@@ -5,8 +5,8 @@ import { request } from 'node:http';
 import { createMaxRelay } from '../lead-service/max-relay/server.mjs';
 
 const secret = 'integration-test-secret-with-32-characters';
-async function start(t, fetchImpl) {
-  const server = createMaxRelay({ secret, fetchImpl });
+async function start(t, fetchImpl, options = {}) {
+  const server = createMaxRelay({ secret, fetchImpl, ...options });
   server.listen(0, '127.0.0.1');
   await once(server, 'listening');
   t.after(() => new Promise(resolve => server.close(resolve)));
@@ -63,4 +63,44 @@ test('VPS relay never acknowledges network errors, redirects or malformed servic
   result = () => { throw new Error('Network down'); };
   assert.equal((await send()).status, 503);
   assert.throws(() => createMaxRelay({ secret: '' }), /MAX_WEBHOOK_SECRET/);
+});
+
+test('lead gateway restricts browser origins and forwards the actual client address with a private signature', async t => {
+  const origin = 'https://prioritetmebel48.ru';
+  const leadProxySecret = 'separate-lead-proxy-signature-for-tests';
+  let calls = 0;
+  const url = await start(t, async (target, options) => {
+    calls++;
+    assert.equal(target, 'https://prioritet-leads-20261105.eggetsevich.chatgpt.site/api/leads');
+    assert.equal(options.headers.Origin, origin);
+    assert.equal(options.headers['X-Prioritet-Proxy-Secret'], leadProxySecret);
+    assert.equal(options.headers['X-Prioritet-Client-IP'], '198.51.100.42');
+    assert.equal(options.headers.Authorization, undefined);
+    assert.equal(options.headers.Cookie, undefined);
+    assert.equal(options.headers['X-Max-Bot-Api-Secret'], undefined);
+    return Response.json({ accepted: true, delivered: false }, { status: 202 });
+  }, { leadProxySecret, allowedOrigins: [origin] });
+  const preflight = await fetch(`${url}/api/leads`, { method: 'OPTIONS', headers: { Origin: origin, 'Access-Control-Request-Method': 'POST' } });
+  assert.equal(preflight.status, 204);
+  assert.equal(preflight.headers.get('Access-Control-Allow-Origin'), origin);
+  assert.equal((await fetch(`${url}/api/leads`, { method: 'OPTIONS', headers: { Origin: 'https://untrusted.example' } })).status, 403);
+  assert.equal((await fetch(`${url}/api/leads`, { method: 'POST', headers: { Origin: origin, 'Content-Type': 'application/json' }, body: 'x'.repeat(16385) })).status, 413);
+  assert.equal(calls, 0);
+  const response = await fetch(`${url}/api/leads`, { method: 'POST', headers: { Origin: origin, 'Content-Type': 'application/json', 'X-Real-IP': '198.51.100.42', 'X-Prioritet-Client-IP': '203.0.113.99', Authorization: 'private', Cookie: 'private' }, body: '{"consent":false}' });
+  assert.equal(response.status, 202);
+  assert.equal(response.headers.get('Access-Control-Allow-Origin'), origin);
+  assert.deepEqual(await response.json(), { accepted: true, delivered: false });
+  assert.equal(calls, 1);
+});
+
+test('lead gateway fails closed without configuration and exposes service errors to the permitted form', async t => {
+  const origin = 'https://prioritetmebel48.ru';
+  const disabled = await start(t, () => { throw new Error('Unexpected forwarding'); }, { allowedOrigins: [origin] });
+  const send = base => fetch(`${base}/api/leads`, { method: 'POST', headers: { Origin: origin, 'Content-Type': 'application/json' }, body: '{}' });
+  assert.equal((await send(disabled)).status, 503);
+  const unavailable = await start(t, () => { throw new Error('Service unavailable'); }, { leadProxySecret: 'separate-lead-proxy-signature-for-tests', allowedOrigins: [origin] });
+  const response = await send(unavailable);
+  assert.equal(response.status, 503);
+  assert.equal(response.headers.get('Access-Control-Allow-Origin'), origin);
+  assert.ok(!(await response.json()).accepted);
 });

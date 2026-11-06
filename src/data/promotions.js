@@ -1,10 +1,11 @@
 import { asset, requestUrl } from '../lib/urls.js';
+import { publicGateway } from '../lib/public-gateway.js';
 
 export const marketing = {
   catalog: asset('marketing/prioritet-projects-2026.pdf'),
   cover: asset('marketing/catalog-cover.webp'),
   certificate: asset('marketing/certificate.webp'),
-  video: asset('marketing/atelier-introduction.mp4'),
+  video: `${publicGateway}/media/atelier-introduction.mp4`,
   poster: asset('marketing/atelier-poster.webp'),
 };
 export const certificateTerms = [

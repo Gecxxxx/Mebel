@@ -136,6 +136,15 @@ async function requestBody(request) {
   while (true) { const chunk = await reader.read(); if (chunk.done) break; total += chunk.value.byteLength; if (total > 16384) { await reader.cancel(); throw new InputError('Запрос слишком большой.', 413); } raw += decoder.decode(chunk.value, { stream: true }); }
   raw += decoder.decode(); try { return JSON.parse(raw); } catch { throw new InputError('Не удалось прочитать данные.'); }
 }
+async function leadClientAddress(request, env) {
+  const address = request.headers.get('X-Prioritet-Client-IP') || '';
+  let valid = /^(?:\d{1,3}\.){3}\d{1,3}$/.test(address) && address.split('.').every(part => Number(part) <= 255);
+  if (!valid && address.includes(':') && /^[a-f\d:.]{2,45}$/i.test(address)) {
+    try { new URL(`http://[${address}]/`); valid = true; } catch { /* invalid IPv6 */ }
+  }
+  if (valid && env.LEAD_PROXY_SECRET && await secretMatches(request.headers.get('X-Prioritet-Proxy-Secret'), env.LEAD_PROXY_SECRET)) return address;
+  return request.headers.get('CF-Connecting-IP') || 'unknown';
+}
 export async function fetchHandler(request, env, ctx) {
   const url = new URL(request.url), origin = request.headers.get('Origin');
   const allowed = (env.ALLOWED_ORIGINS || 'https://gecxxxx.github.io').split(',').map(s => s.trim());
@@ -183,7 +192,7 @@ export async function fetchHandler(request, env, ctx) {
       return json({ error: 'Not found' }, 404);
     }
     if (request.method === 'POST' && url.pathname === '/api/leads') {
-      const rateKey = await hash(`${env.TELEGRAM_WEBHOOK_SECRET}:${request.headers.get('CF-Connecting-IP') || 'unknown'}`);
+      const rateKey = await hash(`${env.TELEGRAM_WEBHOOK_SECRET}:${await leadClientAddress(request, env)}`);
       if (!await rate(env.DB, `website:${rateKey}`, 12, 600000)) return json({ error: 'Слишком много обращений. Попробуйте немного позже.' }, 429, cors);
       const result = await receiveLead(env.DB, await requestBody(request));
       await deliver(env, result.id);

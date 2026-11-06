@@ -17,6 +17,8 @@ Telegram в шапке ведёт в существующий клиентски
 - Публичного чтения заявок нет. `/health` выдаёт только состояние подключения. `/internal/verify`, `/internal/configure`, `/internal/self-test` требуют серверный `ADMIN_TOKEN`. Самопроверка не отправляет уведомлений и удаляет только собственную синтетическую запись.
 - Секреты задаются native Sites environment variables. Frontend знает лишь публичный `PUBLIC_LEAD_API_URL`.
 
+Публичные формы и опрос обращаются к VPS gateway `/api/leads`: прямой адрес Sites возвращал Cloudflare 403 в проверенных российских сетях. Gateway сохраняет JSON, согласие, `requestId` и результат сервиса. Он подписывает настоящий клиентский IP отдельным `LEAD_PROXY_SECRET`; Sites доверяет этому адресу только с правильной подписью, сохраняя ограничение частоты по посетителям. Данные заявок в файлы или журнал VPS не записываются. Точный список источников включает `https://prioritetmebel48.ru`, `https://www.prioritetmebel48.ru`, прежние Pages и GitHub адреса. Публичный hostname gateway централизован в `src/lib/public-gateway.js`.
+
 ## Развёртывание
 
 Рабочий checkout сервиса: `../prioritet-leads-api`. Его `.openai/hosting.json` содержит отдельный Sites ID и D1 binding `DB`; не переносить ID в GitHub Pages проект. Worker копируется отсюда в `worker/index.js` сервиса. Схема создаётся миграцией Drizzle до запуска; `worker-schema.sql` — её копия для локальных проверок. Обновления публикуются через Sites source workflow, saved version и deploy. Секреты в исходники не переносятся.
