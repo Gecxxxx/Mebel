@@ -2,7 +2,7 @@ import { asset, requestUrl } from '../lib/urls.js';
 import { publicGateway } from '../lib/public-gateway.js';
 
 export const marketing = {
-  catalog: asset('marketing/prioritet-projects-2026.pdf'),
+  catalog: `${publicGateway}/media/prioritet-projects-2026.pdf`,
   cover: asset('marketing/catalog-cover.webp'),
   certificate: asset('marketing/certificate.webp'),
   video: `${publicGateway}/media/atelier-introduction.mp4`,
