@@ -62,6 +62,8 @@ Use varied real photographs on direction cards, a compact carousel with prominen
 
 The separate Sites service accepts website applications and connects any Telegram/MAX recipient through `/start`, a server-side password and `/status`; `/stop` unsubscribes. Multiple subscribers are independent. Do not replace this with manual recipient IDs or expose the password. Backend source and operating notes are in `lead-service/`; deployed source is in the adjacent `prioritet-leads-api` checkout. Run `npm run test:leads` with existing build/static/catalog checks before publication.
 
+MAX incoming events now use the independent VPS HTTPS relay in `lead-service/max-relay/`; recipient state, leads and outgoing messages remain in Sites. Preserve the production `MAX_WEBHOOK_URL` when reconfiguring the bot. The former Pages callback remains in source for compatibility and is not the active subscription. Validate real MAX commands and lead delivery without a local polling process before claiming the integration works. The VPS has other applications: isolate the Node runtime, systemd service and nginx host instead of replacing existing services or upgrading their runtime.
+
 ## Marketing materials approved on 6 November 2026
 
 The owner approved the new catalog, introductory video and certificate promotion, and explicitly requested a closable popup after some time on the site. The owner explicitly changed the delay to 7 seconds of visible browsing, once per tab visit, with a persistent manual reopen button. Suppress automatic opening while a form, navigation, video or another dialog is in use. Request, privacy and error pages have no promotion popup. Preserve native-dialog focus handling, Escape/backdrop/close controls and reduced-motion support.
