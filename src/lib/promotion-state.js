@@ -1,4 +1,4 @@
-export const PROMOTION_DELAY = 25000;
+export const PROMOTION_DELAY = 7000;
 export const PROMOTION_STORAGE_KEY = 'prioritet-promotion-session-v1';
 
 export function readPromotionState(storage) {

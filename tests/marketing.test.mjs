@@ -9,10 +9,14 @@ test('the supplied PDF stays intact and video is loaded only on demand', async (
   assert.equal(createHash('sha256').update(pdf).digest('hex'), sources.catalog.sha256);
   const video = await stat('public/assets/marketing/atelier-introduction.mp4');
   assert.ok(video.size < 10 * 1024 * 1024, 'Website video should remain comfortably below Pages file limits');
-  const about = await readFile('dist/client/about/index.html', 'utf8');
-  assert.match(about, /<video[^>]*preload="none"/);
-  assert.match(about, /atelier-poster\.webp/);
-  assert.match(about, /atelier-introduction\.mp4/);
+  for (const path of ['index.html', 'about/index.html']) {
+    const page = await readFile(`dist/client/${path}`, 'utf8');
+    assert.equal((page.match(/<video\b/g) || []).length, 1);
+    assert.match(page, /<video[^>]*preload="none"/);
+    assert.match(page, /atelier-poster\.webp/);
+    assert.match(page, /atelier-introduction\.mp4/);
+    assert.match(page, /id="atelier-video"/);
+  }
 });
 
 test('promotion terms and project prices appear in the intended sections without extending historical dining prices', async () => {
