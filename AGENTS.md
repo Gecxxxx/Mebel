@@ -66,6 +66,8 @@ MAX incoming events now use the independent VPS HTTPS relay in `lead-service/max
 
 The public domain is `https://prioritetmebel48.ru`. Browser forms use the VPS `/api/leads` gateway because the direct Sites endpoint returned Cloudflare 403 from four Russian networks. Keep the exact main/www/Pages/GitHub CORS allowlist on both services. The gateway signs the nginx-verified client IP with `LEAD_PROXY_SECRET`; never trust forwarded IP headers without this separate server secret. The same VPS serves the unchanged introductory video with byte-range support. Public gateway configuration is centralized in `src/lib/public-gateway.js`; credentials remain outside frontend assets and source control.
 
+The owner requested Yandex Metrika counter `114121807` on 7 November 2026. It is loaded once per page in the shared Base layout, with the supplied Webvisor/clickmap/link/bounce/dataLayer settings and noscript fallback. Preserve `ym-disable-keys` on inquiry/quiz text inputs and textarea, and the analytics disclosure on the privacy page.
+
 ## Marketing materials approved on 6 November 2026
 
 The owner approved the new catalog, introductory video and certificate promotion, and explicitly requested a closable popup after some time on the site. The owner explicitly changed the delay to 7 seconds of visible browsing, once per tab visit, with a persistent manual reopen button. Suppress automatic opening while a form, navigation, video or another dialog is in use. Request, privacy and error pages have no promotion popup. Preserve native-dialog focus handling, Escape/backdrop/close controls and reduced-motion support.
