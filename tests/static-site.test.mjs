@@ -27,15 +27,27 @@ function localFile(url, current) {
   return path.join(root, relative);
 }
 
-test('every page is standalone HTML with one heading and noindex during demo', async () => {
+test('every page is standalone HTML with one heading and appropriate indexing for the deployment', async () => {
+  const production = /name="robots" content="index,follow"/.test(index);
+  const sitemap = await readFile(path.join(root, 'sitemap.xml'), 'utf8');
+  const indexablePaths = new Set([...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(([, url]) => new URL(url).pathname));
   assert.ok(htmlFiles.length > 150, 'Expected all imported product pages, not only a router shell');
   for (const file of htmlFiles) {
     const html = await readFile(file, 'utf8');
     assert.equal((html.match(/<h1(?:\s|>)/g) || []).length, 1, `${file}: one h1 required`);
     assert.match(html, /<title>[^<]+<\/title>/);
     assert.match(html, /name="description" content="[^"]+"/);
-    assert.match(html, /name="robots" content="noindex,follow"/);
+    const relative = path.relative(root, file).replaceAll('\\', '/');
+    const pathname = base + relative.replace(/index\.html$/, '');
+    const expected = production && indexablePaths.has(pathname) ? 'index,follow' : 'noindex,follow';
+    assert.ok(html.includes(`name="robots" content="${expected}"`), `${relative}: expected ${expected}`);
+    if (production) {
+      assert.match(html, /rel="canonical" href="https:\/\/prioritetmebel48\.ru\//);
+      assert.doesNotMatch(html, /property="og:(?:url|image)" content="https:\/\/gecxxxx\.github\.io/);
+    }
   }
+  const robots = await readFile(path.join(root, 'robots.txt'), 'utf8');
+  assert.ok(robots.includes(`Sitemap: ${new URL('sitemap.xml', index.match(/rel="canonical" href="([^"]+)"/)[1]).href}`));
 });
 
 test('all generated internal navigation and image targets exist under deployment base', async () => {

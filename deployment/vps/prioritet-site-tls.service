@@ -1,0 +1,15 @@
+[Unit]
+Description=Provision Prioritet HTTPS after DNS cutover
+After=network-online.target nginx.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 /opt/prioritet-site/operations/bootstrap_tls.py
+TimeoutStartSec=360
+User=root
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/etc/letsencrypt /var/lib/letsencrypt /var/log/letsencrypt /var/log/nginx /var/lib/prioritet-site /etc/nginx/sites-available

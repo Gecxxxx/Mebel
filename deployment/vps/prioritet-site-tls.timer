@@ -1,0 +1,11 @@
+[Unit]
+Description=Check DNS readiness for initial Prioritet certificate issuance
+
+[Timer]
+OnBootSec=60s
+OnUnitInactiveSec=60s
+AccuracySec=10s
+Unit=prioritet-site-tls.service
+
+[Install]
+WantedBy=timers.target

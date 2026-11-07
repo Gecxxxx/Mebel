@@ -26,7 +26,7 @@ Centralized content lives in `src/data/`. Each product and project must have sta
 
 Imported model prices are historical reference values, not verified current offers. Never claim current stock from the old export. The dining-group collection contains individual tables and chairs: clearly state that displayed prices are for individual items and the complete set is agreed separately. Exclude unreviewed Copy cards and do not invent missing project photographs.
 
-This is a demonstration frontend for review. Keep `noindex,follow` until a deliberate production-domain launch. A CMS and payment integration are not connected. Leads are stored in the separate private D1 database behind the public Sites API. Do not put inquiry data or integration secrets into static files or the public repository.
+GitHub and ordinary preview builds remain demonstrations with `noindex,follow`. The owner approved moving the production domain to the MAX VPS on 7 November 2026. `npm run build:vps` enables indexing and uses the main domain for canonical, Open Graph and sitemap URLs; request/privacy/error pages and redirect aliases stay noindex. A CMS and payment integration are not connected. Leads are stored in the separate private D1 database behind the public Sites API. Do not put inquiry data or integration secrets into static files or the public repository.
 
 ## Latest typography preference
 
@@ -67,6 +67,8 @@ MAX incoming events now use the independent VPS HTTPS relay in `lead-service/max
 The public domain is `https://prioritetmebel48.ru`. Browser forms use the VPS `/api/leads` gateway because the direct Sites endpoint returned Cloudflare 403 from four Russian networks. Keep the exact main/www/Pages/GitHub CORS allowlist on both services. The gateway signs the nginx-verified client IP with `LEAD_PROXY_SECRET`; never trust forwarded IP headers without this separate server secret. The same VPS serves the unchanged introductory video with byte-range support. Public gateway configuration is centralized in `src/lib/public-gateway.js`; credentials remain outside frontend assets and source control.
 
 The owner requested Yandex Metrika counter `114121807` on 7 November 2026. It is loaded once per page in the shared Base layout, with the supplied Webvisor/clickmap/link/bounce/dataLayer settings and noscript fallback. Preserve `ym-disable-keys` on inquiry/quiz text inputs and textarea, and the analytics disclosure on the privacy page.
+
+VPS website publication is documented in `deployment/vps/README.md`. nginx serves `/var/www/prioritet/current`; keep atomic releases and rollback snapshots. The provider hostname also previews the website and is an explicitly allowed fifth CORS origin on both gateway and Sites. The user will change DNS themselves: do not mutate DNS records without a later request. The initial TLS bootstrap waits for real DNS/HTTP readiness, then installs separate apex/www certificates and disables itself. Preserve the existing certbot renewal timer and all unrelated nginx hosts. A GitHub push updates previews, not the VPS; use a separate verified production release for VPS changes.
 
 ## Marketing materials approved on 6 November 2026
 
