@@ -20,11 +20,29 @@ ORIGINS = 'https://gecxxxx.github.io,https://mebel-6c2.pages.dev,https://priorit
 def run(*args):
     subprocess.run(args, check=True)
 
+def validate_gateway_environment(file):
+    value = file.read_text()
+    entries = {}
+    for line in value.splitlines():
+        if not line.strip() or line.lstrip().startswith('#'):
+            continue
+        key, separator, item = line.partition('=')
+        if not separator or key in entries:
+            raise RuntimeError('Invalid gateway configuration; no services were restarted')
+        entries[key] = item
+    for key in ('MAX_WEBHOOK_SECRET', 'LEAD_PROXY_SECRET'):
+        if not re.fullmatch(r'[a-zA-Z0-9_-]{32,256}', entries.get(key, '')):
+            raise RuntimeError('Incomplete gateway configuration; no services were restarted')
+    return value
+
 def install(archive, checksum, commit):
     if os.geteuid() != 0 or not re.fullmatch(r'[a-f0-9]{64}', checksum) or not re.fullmatch(r'[a-f0-9]{40}', commit):
         raise RuntimeError('Expected root, SHA256 and full source commit')
     if hashlib.sha256(archive.read_bytes()).hexdigest() != checksum:
         raise RuntimeError('Archive checksum mismatch')
+    # Check persistent credentials before touching nginx or restarting a live
+    # service whose old process might still hold a valid in-memory environment.
+    validate_gateway_environment(Path('/etc/prioritet-max.env'))
     with tarfile.open(archive) as package:
         members = package.getmembers()
         for member in members:
@@ -74,6 +92,7 @@ def install(archive, checksum, commit):
     if enabled.exists() and (not enabled.is_symlink() or enabled.resolve() != SITE):
         raise RuntimeError('Refusing to replace another nginx site')
     had_enabled = enabled.is_symlink()
+    gateway_changed = False
     try:
         old_relay = RELAY.read_text()
         if not old_relay.startswith('# Prioritet MAX webhook relay'):
@@ -100,13 +119,15 @@ def install(archive, checksum, commit):
         run('nginx', '-t')
         run('systemctl', 'reload', 'nginx')
         env = Path('/etc/prioritet-max.env')
-        value = env.read_text()
-        value, count = re.subn(r'^ALLOWED_ORIGINS=.*$', 'ALLOWED_ORIGINS=' + ORIGINS, value, flags=re.M)
-        if count != 1:
-            raise RuntimeError('Expected one gateway origin setting')
-        env.write_text(value)
-        env.chmod(0o600)
-        run('systemctl', 'restart', 'prioritet-max')
+        previous_env = validate_gateway_environment(env)
+        value, count = re.subn(r'^ALLOWED_ORIGINS=.*$', 'ALLOWED_ORIGINS=' + ORIGINS, previous_env, flags=re.M)
+        if count == 0:
+            value = value.rstrip() + '\nALLOWED_ORIGINS=' + ORIGINS + '\n'
+        if value != previous_env:
+            env.write_text(value)
+            env.chmod(0o600)
+            gateway_changed = True
+            run('systemctl', 'restart', 'prioritet-max')
         run('systemctl', 'is-active', '--quiet', 'prioritet-max')
         hook = Path('/usr/local/sbin/prioritet-site-certificate-deployed')
         hook.write_text('#!/bin/sh\nexec /usr/bin/python3 /opt/prioritet-site/operations/configure_site.py\n')
@@ -132,7 +153,8 @@ def install(archive, checksum, commit):
             enabled.unlink(missing_ok=True)
         subprocess.run(['nginx', '-t'], check=False)
         subprocess.run(['systemctl', 'reload', 'nginx'], check=False)
-        subprocess.run(['systemctl', 'restart', 'prioritet-max'], check=False)
+        if gateway_changed:
+            subprocess.run(['systemctl', 'restart', 'prioritet-max'], check=False)
         subprocess.run(['systemctl', 'daemon-reload'], check=False)
         raise
 
