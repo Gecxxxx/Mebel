@@ -11,5 +11,5 @@ User=root
 NoNewPrivileges=true
 PrivateTmp=true
 ProtectHome=true
-ProtectSystem=strict
-ReadWritePaths=/etc/letsencrypt /var/lib/letsencrypt /var/log/letsencrypt /var/log/nginx /var/lib/prioritet-site /etc/nginx/sites-available
+ProtectSystem=full
+ReadWritePaths=/etc/letsencrypt /etc/nginx/sites-available
