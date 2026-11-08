@@ -1,4 +1,4 @@
-@font-face{font-family:Manrope;src:url('/assets/fonts/manrope-variable.ttf') format('truetype');font-style:normal;font-weight:200 800;font-display:swap}
+@font-face{font-family:Manrope;src:url('/assets/fonts/manrope-variable.woff2') format('woff2');font-style:normal;font-weight:200 800;font-display:swap}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .site-header{display:grid;grid-template-columns:1fr auto;height:auto;min-height:0;gap:22px;padding:26px var(--gutter) 24px}
 .site-header .brand{grid-column:1;grid-row:1;justify-self:start}

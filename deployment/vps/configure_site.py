@@ -42,8 +42,8 @@ def render(ready=None):
         result += '}\n'
         if ready[host]:
             result += f'''server {{
-    listen 443 ssl;
-    listen [::]:443 ssl;
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
     server_name {host};
     ssl_certificate /etc/letsencrypt/live/{name}/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/{name}/privkey.pem;

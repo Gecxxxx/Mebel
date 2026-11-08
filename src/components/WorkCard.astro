@@ -1,11 +1,11 @@
 ---
 import WorkPhoto from './WorkPhoto.astro';
 import { asset, href } from '../lib/urls.js';
-const { project: p, index = 0 } = Astro.props;
+const { project: p, index = 0, loading = index < 2 ? 'eager' : 'lazy' } = Astro.props;
 ---
 <article class="work-card" data-work-category={p.category}>
   <a class="work-card-photo" href={href(`projects/${p.slug}/`)} aria-label={`Открыть альбом: ${p.name}`}>
-    <WorkPhoto photo={p.cover || { image: p.image }} alt={p.name} sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 33vw" loading={index < 2 ? 'eager' : 'lazy'} />
+    <WorkPhoto photo={p.cover || { image: p.image }} alt={p.name} sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 33vw" loading={loading} />
     <span class="work-photo-count">{p.images.length} фото</span>
     <span class="work-card-arrow" aria-hidden="true"><img class="icon" src={asset('icons/arrow-right.svg')} width="22" height="22" alt="" /></span>
   </a>

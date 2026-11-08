@@ -98,10 +98,14 @@ def install(archive, checksum, commit):
         if not old_relay.startswith('# Prioritet MAX webhook relay'):
             raise RuntimeError('Unexpected MAX host configuration')
         include = 'include /etc/nginx/snippets/prioritet-site-static.conf;'
-        if include not in old_relay:
-            if old_relay.count('location / { return 404; }') != 1:
+        relay = old_relay
+        if include not in relay:
+            if relay.count('location / { return 404; }') != 1:
                 raise RuntimeError('Unexpected relay root; refusing unsafe modification')
-            RELAY.write_text(old_relay.replace('location / { return 404; }', include))
+            relay = relay.replace('location / { return 404; }', include)
+        relay = relay.replace('listen 443 ssl;', 'listen 443 ssl http2;').replace('listen [::]:443 ssl;', 'listen [::]:443 ssl http2;')
+        if relay != old_relay:
+            RELAY.write_text(relay)
         snippet = Path('/etc/nginx/snippets/prioritet-site-static.conf')
         shutil.copyfile(OPERATIONS / 'static.conf', snippet)
         snippet.chmod(0o644)

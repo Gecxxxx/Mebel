@@ -1,6 +1,6 @@
 ---
 import { asset } from '../lib/urls.js';
-const { photo, alt = photo?.alt || '', sizes = '(max-width: 600px) 100vw, 50vw', loading = 'lazy', class: className = '' } = Astro.props;
+const { photo, alt = photo?.alt || '', sizes = '(max-width: 600px) 100vw, 50vw', loading = 'lazy', fetchpriority, class: className = '' } = Astro.props;
 const variants = photo.variants || [];
 ---
-<img class={className} src={asset(photo.image)} srcset={variants.length ? variants.map(v => `${asset(v.image)} ${v.width}w`).join(', ') : undefined} sizes={variants.length ? sizes : undefined} alt={alt} width={photo.width || 960} height={photo.height || 1280} loading={loading} decoding="async" />
+<img class={className} src={asset(photo.image)} srcset={variants.length ? variants.map(v => `${asset(v.image)} ${v.width}w`).join(', ') : undefined} sizes={variants.length ? sizes : undefined} alt={alt} width={photo.width || 960} height={photo.height || 1280} loading={loading} fetchpriority={fetchpriority} decoding="async" />
