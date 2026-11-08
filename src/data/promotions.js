@@ -1,11 +1,13 @@
 import { asset, requestUrl } from '../lib/urls.js';
 import { publicGateway } from '../lib/public-gateway.js';
 
+const media = name => import.meta.env.PUBLIC_VPS_ORIGIN ? asset(`marketing/${name}`) : `${publicGateway}/media/${name}`;
+
 export const marketing = {
-  catalog: `${publicGateway}/media/prioritet-projects-2026.pdf`,
+  catalog: media('prioritet-projects-2026.pdf'),
   cover: asset('marketing/catalog-cover.webp'),
   certificate: asset('marketing/certificate.webp'),
-  video: `${publicGateway}/media/atelier-introduction.mp4`,
+  video: media('atelier-introduction.mp4'),
   poster: asset('marketing/atelier-poster.webp'),
 };
 export const certificateTerms = [
