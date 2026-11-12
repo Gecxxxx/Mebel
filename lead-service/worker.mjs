@@ -68,7 +68,7 @@ export async function handleBot(env, event) {
   const session = await sql(db, 'SELECT payload FROM sessions WHERE id=?', id).first();
   const actions = [sql(db, 'INSERT INTO events(id,created_at) VALUES(?,?)', event.id, Date.now())];
   let response;
-  if (event.payload === 'client' || /^\/start(?:@\w+)?\s+client$/.test(text)) response = 'Здравствуйте! Обсудим мебель для вашего дома.\n\nРасскажите о своей идее в коротком опросе: https://gecxxxx.github.io/Mebel/#project-quiz\n\nМожно также позвонить в ателье: +7 (961) 606-93-09.';
+  if (event.payload === 'client' || /^\/start(?:@\w+)?\s+client$/.test(text)) response = 'Здравствуйте! Обсудим мебель для вашего дома.\n\nРасскажите о своей идее в коротком опросе: https://prioritetmebel48.ru/#project-quiz\n\nМожно также позвонить в ателье: +7 (961) 606-93-09.';
   else if (/^\/status(?:@\w+)?$/.test(text)) response = active ? 'Подписка включена ✅\nНовые заявки сайта будут приходить в этот чат.\n\n/status — проверить подписку\n/stop — отключить получение заявок' : 'Подписка выключена.\nДля получения заявок нажмите /start и введите пароль.';
   else if (/^\/stop(?:@\w+)?$/.test(text)) {
     actions.push(sql(db, 'UPDATE subscribers SET active=0 WHERE platform=? AND recipient=?', event.platform, event.recipient), sql(db, 'DELETE FROM sessions WHERE id=?', id), sql(db, "UPDATE outbox SET status='cancelled' WHERE platform=? AND recipient=? AND status='pending' AND lead_id IS NOT NULL", event.platform, event.recipient));
